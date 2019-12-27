@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 
 public class search {
 
-
+	public int gitTest;
 	private JFrame frame;
 	private JTextField textField;
 	private JTable table;
