@@ -30,6 +30,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 import java.awt.Font;
 import javax.swing.JTextArea;
 
@@ -212,6 +213,10 @@ public class rxFillingScreen extends JFrame {
 		save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
+				String saveOldInfo = (lNameSave.toString() + "_" + fNameSave.toString() + "_"
+						+ dobSave.toString() + "_" + pnSave.toString() + "_" + phnSave.toString() + "_"
+						+ addSave.toString() + "_" + ".txt");
+				
 				if (!(lNameFill.getText().equals(lNameSave.toString())) || !(fNameFill.getText().equals(fNameSave))
 						|| !(dobFill.getText().equals(dobSave))) {
 					int confirmationNameChange = JOptionPane.showConfirmDialog(contentPane,
@@ -222,6 +227,7 @@ public class rxFillingScreen extends JFrame {
 						fNameFill.setText(fNameSave.toString());
 					} else if (confirmationNameChange == 0) {
 						try {
+							
 							File inputFile = new File(cwd + "RxProcessor/ptFiles/ptList.txt");
 							File tempFile = new File(cwd + "RxProcessor/ptFiles/ptListTemp.txt");
 							BufferedReader reader = new BufferedReader(new FileReader(inputFile));
@@ -248,39 +254,58 @@ public class rxFillingScreen extends JFrame {
 									+ pnFill.getText().toString() + "_" + phnFill.getText().toString() + "_"
 									+ addFill.getText().toString() + "_" + ".txt");
 							FileWriter tempFileW = new FileWriter(tempPtFile);
+							BufferedWriter tempFileBw = new BufferedWriter(tempFileW);
+					
+							FileReader ptInfoFileReader = new FileReader(cwd + "RxProcessor/ptFiles/" + lNameSave.toString() + "_" + fNameSave.toString() + "_"
+									+ dobSave.toString() + "_" + pnSave.toString() + "_" + phnSave.toString() + "_"
+									+ addSave.toString() + "_" + ".txt");
+							BufferedReader ptInfoFile = new BufferedReader(ptInfoFileReader);
+							
+							//tempFileBw.write("Hi");
+							String s;
+							while ((s = ptInfoFile.readLine()) != null) { // read a line
+								tempFileW.write(s); // write to output file
+								tempFileW.flush();
+							}
+							ptInfoFile.close();
+							tempFileW.close();
 							
 							
-							
-							
-							
-							
+							tempFileBw.close();
+							tempFileW.close();
 							writer.newLine();
 							writer.close();
 							reader.close();
-							tempFileW.close();
+							
 							lblNameOfPt.setText(fNameFill.getText().toString() + " " + lNameFill.getText().toString());
-							
-							
-							
-							
 							
 							
 							if (!inputFile.delete()) {
 								JOptionPane.showMessageDialog(ptInfo_1, "NO");
 								return;
 							}
-
+							try {
+								TimeUnit.SECONDS.sleep(5);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							if (!tempFile.renameTo(inputFile)) {
 								JOptionPane.showMessageDialog(ptInfo_1, "NO 2");
 							}
 							
-							Files.deleteIfExists(Paths.get(cwd + "RxProcessor/ptFiles/" + lNameSave.toString() + "_"
-									+ fNameSave.toString() + "_" + dobSave.toString() + "_"
-									+ pnSave.toString() + "_" + phnSave.toString() + "_"
-									+ addSave.toString() + "_" + ".txt"));
+							Files.deleteIfExists(Paths.get(cwd + "RxProcessor/ptFiles/" + saveOldInfo));
+
 							
-							lNameSave = lNameFill.getText();
-							fNameSave = fNameFill.getText();
+							lNameSave = lNameFill.getText().toString();
+							fNameSave = fNameFill.getText().toString();
+							dobSave = dobFill.getText().toString();
+							phnSave = phnFill.getText().toString();
+							pnSave = pnFill.getText().toString();
+							addSave = addFill.getText().toString();;
+						
+//							
+
 
 						} catch (IOException e) {
 							// TODO Auto-generated catch block

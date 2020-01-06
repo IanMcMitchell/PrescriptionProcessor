@@ -47,6 +47,7 @@ import java.awt.event.KeyEvent;
 
 public class PtSearch {
 
+	
 	protected static PtSearch ptFrame;
 	private JFrame frame;
 	private JTextField fNameField;
@@ -62,8 +63,11 @@ public class PtSearch {
 	public static File ptFwInfo;
 	public static FileWriter patientFileWriter;
 	public static String ptInfoFileName;
-	
+
 	static String cwd = System.getProperty("user.dir");
+	
+	
+	
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -241,7 +245,7 @@ public class PtSearch {
 				if ((!dobField.getText().toString().equals("") & (dobField.getText().length() != 8))) {
 					JOptionPane.showMessageDialog(frame, "Use YYYYMMDD", "DOB Error", JOptionPane.WARNING_MESSAGE);
 
-				} else  {
+				} else {
 
 					PtSearch ptSearch = new PtSearch();
 					try {
@@ -280,21 +284,24 @@ public class PtSearch {
 						ptBw.newLine();
 
 						File ptFwInfo = new File(cwd + "RxProcessor/ptFiles/" + ptInfoFileName + ".txt");
+						FileReader ptFwInfo2 = new FileReader(ptFwInfo);
+						BufferedReader ptInfoBr = new BufferedReader(ptFwInfo2);
+
 						patientFileWriter = new FileWriter(ptFwInfo);
 						ptFw.flush();
 						ptBw.flush();
 
-						
 						ptFw.close();
 						ptBw.close();
-						
-					//	Window window = SwingUtilities.windowForComponent(table);
 
-					//	window.setVisible(false);
+						// Window window = SwingUtilities.windowForComponent(table);
+
+						// window.setVisible(false);
 
 						Search.doClick();
-						
-						JOptionPane.showMessageDialog(frame, "Patient Created", "Patient Created", JOptionPane.INFORMATION_MESSAGE);
+
+						JOptionPane.showMessageDialog(frame, "Patient Created", "Patient Created",
+								JOptionPane.INFORMATION_MESSAGE);
 
 					} catch (IOException e1) {
 						e1.printStackTrace();
