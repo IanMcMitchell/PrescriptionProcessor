@@ -54,6 +54,7 @@ public class rxFillingScreen extends JFrame {
 	public static Object addSave;
 	public static Object pnSave;
 	public static Object phnSave;
+	private static String saveOldInfo;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -310,10 +311,14 @@ public class rxFillingScreen extends JFrame {
 		save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				String saveOldInfo = (lNameSave.toString() + "_" + fNameSave.toString() + "_" + dobSave.toString() + "_"
+				saveOldInfo = (lNameSave.toString() + "_" + fNameSave.toString() + "_" + dobSave.toString() + "_"
 						+ pnSave.toString() + "_" + phnSave.toString() + "_" + addSave.toString() + "_" + ".txt");
+				
+			//	JOptionPane.showMessageDialog(contentPane, saveOldInfo);
 
 				lblNameOfPt.setForeground(Color.BLACK);
+				
+				
 				
 				if (!(addFill.getText().equals(addSave.toString())) || !(pnFill.getText().equals(pnSave.toString()))
 						|| !(phnFill.getText().equals(phnSave.toString()))) {
@@ -399,7 +404,7 @@ public class rxFillingScreen extends JFrame {
 						e.printStackTrace();
 					}
 
-				} else
+				} 
 
 				if (!(lNameFill.getText().equals(lNameSave.toString())) || !(fNameFill.getText().equals(fNameSave))
 						|| !(dobFill.getText().equals(dobSave))) {
@@ -509,6 +514,8 @@ public class rxFillingScreen extends JFrame {
 
 	public static void setTextOfFields(Object lNameTable, Object fNameTable, Object fDOB, Object fpn, Object fPHN,
 			Object fAdd) {
+		
+		
 
 		lNameFill.setText(lNameTable.toString());
 		fNameFill.setText(fNameTable.toString());
@@ -517,12 +524,14 @@ public class rxFillingScreen extends JFrame {
 		phnFill.setText(fPHN.toString());
 		addFill.setText(fAdd.toString());
 
-		lNameSave = lNameTable;
-		fNameSave = fNameTable;
-		dobSave = fDOB;
-		phnSave = fPHN;
-		pnSave = fpn;
-		addSave = fAdd;
+		lNameSave = lNameTable.toString();
+		fNameSave = fNameTable.toString();
+		dobSave = fDOB.toString();
+		phnSave = fPHN.toString();
+		pnSave = fpn.toString();
+		addSave = fAdd.toString();
+		
+		//save.doClick();
 
 	}
 }
