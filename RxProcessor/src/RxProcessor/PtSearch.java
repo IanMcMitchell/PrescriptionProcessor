@@ -293,7 +293,7 @@ public class PtSearch {
 						
 						ptFw.flush();
 						ptBw.flush();
-
+						patientFileWriter.close();
 						ptFw.close();
 						ptBw.close();
 
@@ -342,6 +342,7 @@ public class PtSearch {
 					Object fPHN = (Object) model.getValueAt(row, 4);
 					Object fAdd = (Object) model.getValueAt(row, 5);
 					rxFillingScreen.ptInfo_1.setVisible(true);
+					rxFillingScreen.ptInfo_1.repaint();
 					rxFillingScreen.lblNameOfPt.setText(fNameTable + " " + lNameTable);
 					rxFillingScreen.setTextOfFields(lNameTable, fNameTable, fDOB, fpn, fPHN, fAdd);
 
