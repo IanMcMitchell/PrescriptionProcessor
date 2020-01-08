@@ -283,11 +283,14 @@ public class PtSearch {
 								+ phnField.getText().toString() + "_" + addressField.getText().toString() + "_";
 						ptBw.newLine();
 
+						
+						
 						File ptFwInfo = new File(cwd + "RxProcessor/ptFiles/" + ptInfoFileName + ".txt");
-						FileReader ptFwInfo2 = new FileReader(ptFwInfo);
-						BufferedReader ptInfoBr = new BufferedReader(ptFwInfo2);
+//						FileReader ptFwInfo2 = new FileReader(ptFwInfo);
+//						BufferedReader ptInfoBr = new BufferedReader(ptFwInfo2);
 
 						patientFileWriter = new FileWriter(ptFwInfo);
+						
 						ptFw.flush();
 						ptBw.flush();
 

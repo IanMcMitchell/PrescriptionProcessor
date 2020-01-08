@@ -33,6 +33,8 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.awt.Font;
 import javax.swing.JTextArea;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class rxFillingScreen extends JFrame {
 
@@ -130,18 +132,60 @@ public class rxFillingScreen extends JFrame {
 		ptInfo_1.add(newRx);
 
 		lNameFill = new JTextField();
+		lNameFill.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				int textPosition = lNameFill.getCaretPosition();
+				lNameFill.setText(lNameFill.getText().toUpperCase());
+				lNameFill.setCaretPosition(textPosition);
+				if (!(lNameFill.getText().equals(lNameSave.toString()))) {
+					lblNameOfPt.setForeground(Color.RED);
+				} 
+//				else if ((lNameFill.getText().equals(lNameSave.toString()))) {
+//					lblNameOfPt.setForeground(Color.BLACK);
+//				}
+			}
+		});
 		lNameFill.setBackground(new Color(250, 250, 210));
 		lNameFill.setBounds(76, 82, 173, 20);
 		ptInfo_1.add(lNameFill);
 		lNameFill.setColumns(10);
 
 		fNameFill = new JTextField();
+		fNameFill.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				int textPosition = fNameFill.getCaretPosition();
+				fNameFill.setText(fNameFill.getText().toUpperCase());
+				fNameFill.setCaretPosition(textPosition);
+				if (!(fNameFill.getText().equals(fNameSave.toString()))) {
+					lblNameOfPt.setForeground(Color.RED);
+				} 
+//				else if ((fNameFill.getText().equals(fNameSave.toString()))) {
+//					lblNameOfPt.setForeground(Color.BLACK);
+//				}
+			}
+		});
 		fNameFill.setBackground(new Color(250, 250, 210));
 		fNameFill.setBounds(316, 82, 173, 20);
 		ptInfo_1.add(fNameFill);
 		fNameFill.setColumns(10);
 
 		dobFill = new JTextField();
+		dobFill.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				int textPosition = dobFill.getCaretPosition();
+				dobFill.setText(dobFill.getText().toUpperCase());
+				dobFill.setCaretPosition(textPosition);
+				if (!(dobFill.getText().equals(dobSave.toString()))) {
+					lblNameOfPt.setForeground(Color.RED);
+				} 
+//				else if ((dobFill.getText().equals(dobSave.toString()))) {
+//					lblNameOfPt.setForeground(Color.BLACK);
+//				}
+			}
+		});
 		dobFill.setBackground(new Color(250, 250, 210));
 		dobFill.setBounds(578, 82, 128, 20);
 		ptInfo_1.add(dobFill);
@@ -150,18 +194,62 @@ public class rxFillingScreen extends JFrame {
 		contentPane.add(ptInfo_1);
 
 		phnFill = new JTextField();
+		phnFill.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				int textPosition = phnFill.getCaretPosition();
+				phnFill.setText(phnFill.getText().toUpperCase());
+				phnFill.setCaretPosition(textPosition);
+				if (!(phnFill.getText().equals(phnSave.toString()))) {
+					lblNameOfPt.setForeground(Color.RED);
+				} 
+//					else if ((phnFill.getText().equals(phnSave.toString()))) {
+//					lblNameOfPt.setForeground(Color.BLACK);
+//				}
+			}
+		});
+		
+		
 		phnFill.setBackground(new Color(230, 230, 250));
-		phnFill.setEditable(false);
+		phnFill.setEditable(true);
 		phnFill.setBounds(76, 188, 173, 20);
 		ptInfo_1.add(phnFill);
 		phnFill.setColumns(10);
 
 		addFill = new JTextField();
+		addFill.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				int textPosition = addFill.getCaretPosition();
+				addFill.setText(addFill.getText().toUpperCase());
+				addFill.setCaretPosition(textPosition);
+				if (!(addFill.getText().equals(addSave.toString()))) {
+					lblNameOfPt.setForeground(Color.RED);
+				} 
+//				else if ((addFill.getText().equals(addSave.toString()))) {
+//					lblNameOfPt.setForeground(Color.BLACK);
+//				}
+			}
+		});
 		addFill.setBounds(76, 131, 413, 20);
 		ptInfo_1.add(addFill);
 		addFill.setColumns(10);
 
 		pnFill = new JTextField();
+		pnFill.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				int textPosition = pnFill.getCaretPosition();
+				pnFill.setText(pnFill.getText().toUpperCase());
+				pnFill.setCaretPosition(textPosition);
+				if (!(pnFill.getText().equals(pnSave.toString()))) {
+					lblNameOfPt.setForeground(Color.RED);
+				} 
+//				else if ((pnFill.getText().equals(pnSave.toString()))) {
+//					lblNameOfPt.setForeground(Color.BLACK);
+//				}
+			}
+		});
 		pnFill.setColumns(10);
 		pnFill.setBounds(578, 131, 128, 20);
 		ptInfo_1.add(pnFill);
@@ -209,14 +297,110 @@ public class rxFillingScreen extends JFrame {
 		textArea.setBounds(321, 186, 385, 216);
 		ptInfo_1.add(textArea);
 
+//		if ((ptInfo_1.isVisible() == true) && !(addFill.getText().equals(addSave.toString())) || !(pnFill.getText().equals(pnSave.toString()))
+//				|| !(phnFill.getText().equals(phnSave.toString()))
+//				|| !(lNameFill.getText().equals(lNameSave.toString())) || !(fNameFill.getText().equals(fNameSave))) {
+//			
+//			lblNameOfPt.setBackground(Color.RED);
+//			return;
+//
+//		} 
+
 		JButton save = new JButton("\u2611 ");
 		save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				String saveOldInfo = (lNameSave.toString() + "_" + fNameSave.toString() + "_"
-						+ dobSave.toString() + "_" + pnSave.toString() + "_" + phnSave.toString() + "_"
-						+ addSave.toString() + "_" + ".txt");
+				String saveOldInfo = (lNameSave.toString() + "_" + fNameSave.toString() + "_" + dobSave.toString() + "_"
+						+ pnSave.toString() + "_" + phnSave.toString() + "_" + addSave.toString() + "_" + ".txt");
+
+				lblNameOfPt.setForeground(Color.BLACK);
 				
+				if (!(addFill.getText().equals(addSave.toString())) || !(pnFill.getText().equals(pnSave.toString()))
+						|| !(phnFill.getText().equals(phnSave.toString()))) {
+
+					try {
+
+						File inputFile = new File(cwd + "RxProcessor/ptFiles/ptList.txt");
+						File tempFile = new File(cwd + "RxProcessor/ptFiles/ptListTemp.txt");
+						BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+						BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+						String lineToRemove = lNameSave.toString() + "/" + fNameSave.toString() + "/"
+								+ dobSave.toString() + "/" + pnSave.toString() + "/" + phnSave.toString() + "/"
+								+ addSave.toString() + "/";
+
+						String currentLine;
+						while ((currentLine = reader.readLine()) != null) {
+							String trimmedLine = currentLine.trim();
+							if (trimmedLine.equals(lineToRemove))
+								continue;
+							writer.write(currentLine + System.getProperty("line.separator"));
+
+						}
+						writer.write(lNameFill.getText().toString() + "/" + fNameFill.getText().toString() + "/"
+								+ dobFill.getText().toString() + "/" + pnFill.getText().toString() + "/"
+								+ phnFill.getText().toString() + "/" + addFill.getText().toString() + "/");
+
+						File tempPtFile = new File(cwd + "RxProcessor/ptFiles/" + lNameFill.getText().toString() + "_"
+								+ fNameFill.getText().toString() + "_" + dobFill.getText().toString() + "_"
+								+ pnFill.getText().toString() + "_" + phnFill.getText().toString() + "_"
+								+ addFill.getText().toString() + "_" + ".txt");
+						FileWriter tempFileW = new FileWriter(tempPtFile);
+						BufferedWriter tempFileBw = new BufferedWriter(tempFileW);
+
+						FileReader ptInfoFileReader = new FileReader(cwd + "RxProcessor/ptFiles/" + lNameSave.toString()
+								+ "_" + fNameSave.toString() + "_" + dobSave.toString() + "_" + pnSave.toString() + "_"
+								+ phnSave.toString() + "_" + addSave.toString() + "_" + ".txt");
+						BufferedReader ptInfoFile = new BufferedReader(ptInfoFileReader);
+
+						// tempFileBw.write("Hi");
+						String s;
+						while ((s = ptInfoFile.readLine()) != null) { // read a line
+							tempFileW.write(s); // write to output file
+							tempFileW.flush();
+						}
+						ptInfoFile.close();
+						tempFileW.close();
+
+						tempFileBw.close();
+						tempFileW.close();
+						writer.newLine();
+						writer.close();
+						reader.close();
+
+						lblNameOfPt.setText(fNameFill.getText().toString() + " " + lNameFill.getText().toString());
+
+						if (!inputFile.delete()) {
+							JOptionPane.showMessageDialog(ptInfo_1, "NO");
+							return;
+						}
+//						try {
+//							TimeUnit.SECONDS.sleep(5);
+//						} catch (InterruptedException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
+						if (!tempFile.renameTo(inputFile)) {
+							JOptionPane.showMessageDialog(ptInfo_1, "NO 2");
+						}
+
+						Files.deleteIfExists(Paths.get(cwd + "RxProcessor/ptFiles/" + saveOldInfo));
+
+						lNameSave = lNameFill.getText().toString();
+						fNameSave = fNameFill.getText().toString();
+						dobSave = dobFill.getText().toString();
+						phnSave = phnFill.getText().toString();
+						pnSave = pnFill.getText().toString();
+						addSave = addFill.getText().toString();
+
+						lblNameOfPt.setForeground(Color.BLACK);
+
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				} else
+
 				if (!(lNameFill.getText().equals(lNameSave.toString())) || !(fNameFill.getText().equals(fNameSave))
 						|| !(dobFill.getText().equals(dobSave))) {
 					int confirmationNameChange = JOptionPane.showConfirmDialog(contentPane,
@@ -227,7 +411,7 @@ public class rxFillingScreen extends JFrame {
 						fNameFill.setText(fNameSave.toString());
 					} else if (confirmationNameChange == 0) {
 						try {
-							
+
 							File inputFile = new File(cwd + "RxProcessor/ptFiles/ptList.txt");
 							File tempFile = new File(cwd + "RxProcessor/ptFiles/ptListTemp.txt");
 							BufferedReader reader = new BufferedReader(new FileReader(inputFile));
@@ -239,29 +423,29 @@ public class rxFillingScreen extends JFrame {
 							String currentLine;
 							while ((currentLine = reader.readLine()) != null) {
 								String trimmedLine = currentLine.trim();
-								if (trimmedLine.equals(lineToRemove)) 
+								if (trimmedLine.equals(lineToRemove))
 									continue;
 								writer.write(currentLine + System.getProperty("line.separator"));
-								
+
 							}
-							writer.write(lNameFill.getText().toString() + "/"
-									+ fNameFill.getText().toString() + "/" + dobFill.getText().toString() + "/"
-									+ pnFill.getText().toString() + "/" + phnFill.getText().toString() + "/"
-									+ addFill.getText().toString() + "/");
-							
-							File tempPtFile = new File (cwd + "RxProcessor/ptFiles/" + lNameFill.getText().toString() + "_"
-									+ fNameFill.getText().toString() + "_" + dobFill.getText().toString() + "_"
+							writer.write(lNameFill.getText().toString() + "/" + fNameFill.getText().toString() + "/"
+									+ dobFill.getText().toString() + "/" + pnFill.getText().toString() + "/"
+									+ phnFill.getText().toString() + "/" + addFill.getText().toString() + "/");
+
+							File tempPtFile = new File(cwd + "RxProcessor/ptFiles/" + lNameFill.getText().toString()
+									+ "_" + fNameFill.getText().toString() + "_" + dobFill.getText().toString() + "_"
 									+ pnFill.getText().toString() + "_" + phnFill.getText().toString() + "_"
 									+ addFill.getText().toString() + "_" + ".txt");
 							FileWriter tempFileW = new FileWriter(tempPtFile);
 							BufferedWriter tempFileBw = new BufferedWriter(tempFileW);
-					
-							FileReader ptInfoFileReader = new FileReader(cwd + "RxProcessor/ptFiles/" + lNameSave.toString() + "_" + fNameSave.toString() + "_"
-									+ dobSave.toString() + "_" + pnSave.toString() + "_" + phnSave.toString() + "_"
-									+ addSave.toString() + "_" + ".txt");
+
+							FileReader ptInfoFileReader = new FileReader(
+									cwd + "RxProcessor/ptFiles/" + lNameSave.toString() + "_" + fNameSave.toString()
+											+ "_" + dobSave.toString() + "_" + pnSave.toString() + "_"
+											+ phnSave.toString() + "_" + addSave.toString() + "_" + ".txt");
 							BufferedReader ptInfoFile = new BufferedReader(ptInfoFileReader);
-							
-							//tempFileBw.write("Hi");
+
+							// tempFileBw.write("Hi");
 							String s;
 							while ((s = ptInfoFile.readLine()) != null) { // read a line
 								tempFileW.write(s); // write to output file
@@ -269,43 +453,39 @@ public class rxFillingScreen extends JFrame {
 							}
 							ptInfoFile.close();
 							tempFileW.close();
-							
-							
+
 							tempFileBw.close();
 							tempFileW.close();
 							writer.newLine();
 							writer.close();
 							reader.close();
-							
+
 							lblNameOfPt.setText(fNameFill.getText().toString() + " " + lNameFill.getText().toString());
-							
-							
+
 							if (!inputFile.delete()) {
 								JOptionPane.showMessageDialog(ptInfo_1, "NO");
 								return;
 							}
-							try {
-								TimeUnit.SECONDS.sleep(5);
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+//							try {
+//								TimeUnit.SECONDS.sleep(5);
+//							} catch (InterruptedException e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							}
 							if (!tempFile.renameTo(inputFile)) {
 								JOptionPane.showMessageDialog(ptInfo_1, "NO 2");
 							}
-							
+
 							Files.deleteIfExists(Paths.get(cwd + "RxProcessor/ptFiles/" + saveOldInfo));
 
-							
 							lNameSave = lNameFill.getText().toString();
 							fNameSave = fNameFill.getText().toString();
 							dobSave = dobFill.getText().toString();
 							phnSave = phnFill.getText().toString();
 							pnSave = pnFill.getText().toString();
-							addSave = addFill.getText().toString();;
-						
-//							
+							addSave = addFill.getText().toString();
 
+							lblNameOfPt.setForeground(Color.BLACK);
 
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
@@ -317,13 +497,15 @@ public class rxFillingScreen extends JFrame {
 				}
 
 			}
-
+			
 		});
 		save.setBounds(10, 11, 56, 23);
 		ptInfo_1.add(save);
 		ptInfo_1.setVisible(false);
 
 	}
+
+
 
 	public static void setTextOfFields(Object lNameTable, Object fNameTable, Object fDOB, Object fpn, Object fPHN,
 			Object fAdd) {
