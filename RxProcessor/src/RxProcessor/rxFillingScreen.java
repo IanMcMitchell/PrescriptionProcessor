@@ -38,6 +38,7 @@ import java.awt.event.KeyEvent;
 
 public class rxFillingScreen extends JFrame {
 
+	public static JButton patientBtn = new JButton("Patient Search");;
 	public static JPanel contentPane;
 	static String cwd = System.getProperty("user.dir");
 	public static JPanel ptInfo_1 = new JPanel();
@@ -55,6 +56,7 @@ public class rxFillingScreen extends JFrame {
 	public static Object pnSave;
 	public static Object phnSave;
 	private static String saveOldInfo;
+	public static JTextArea textArea = new JTextArea();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -62,6 +64,7 @@ public class rxFillingScreen extends JFrame {
 				try {
 					rxFillingScreen frame = new rxFillingScreen();
 					frame.setVisible(true);
+					frame.setAlwaysOnTop(true);
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -100,10 +103,11 @@ public class rxFillingScreen extends JFrame {
 
 		java.net.URL url = ClassLoader.getSystemResource(cwd + "RxProcessor/rxLogo.jpg");
 
-		JButton patientBtn = new JButton("Patient Search");
+		// JButton patientBtn = new JButton("Patient Search");
 		patientBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				patientBtn.setEnabled(false);
 				PtSearch ptFrame = new PtSearch();
 				ptFrame.setVisible(true);
 
@@ -141,7 +145,7 @@ public class rxFillingScreen extends JFrame {
 				lNameFill.setCaretPosition(textPosition);
 				if (!(lNameFill.getText().equals(lNameSave.toString()))) {
 					lblNameOfPt.setForeground(Color.RED);
-				} 
+				}
 //				else if ((lNameFill.getText().equals(lNameSave.toString()))) {
 //					lblNameOfPt.setForeground(Color.BLACK);
 //				}
@@ -161,7 +165,7 @@ public class rxFillingScreen extends JFrame {
 				fNameFill.setCaretPosition(textPosition);
 				if (!(fNameFill.getText().equals(fNameSave.toString()))) {
 					lblNameOfPt.setForeground(Color.RED);
-				} 
+				}
 //				else if ((fNameFill.getText().equals(fNameSave.toString()))) {
 //					lblNameOfPt.setForeground(Color.BLACK);
 //				}
@@ -181,7 +185,7 @@ public class rxFillingScreen extends JFrame {
 				dobFill.setCaretPosition(textPosition);
 				if (!(dobFill.getText().equals(dobSave.toString()))) {
 					lblNameOfPt.setForeground(Color.RED);
-				} 
+				}
 //				else if ((dobFill.getText().equals(dobSave.toString()))) {
 //					lblNameOfPt.setForeground(Color.BLACK);
 //				}
@@ -203,14 +207,13 @@ public class rxFillingScreen extends JFrame {
 				phnFill.setCaretPosition(textPosition);
 				if (!(phnFill.getText().equals(phnSave.toString()))) {
 					lblNameOfPt.setForeground(Color.RED);
-				} 
+				}
 //					else if ((phnFill.getText().equals(phnSave.toString()))) {
 //					lblNameOfPt.setForeground(Color.BLACK);
 //				}
 			}
 		});
-		
-		
+
 		phnFill.setBackground(new Color(230, 230, 250));
 		phnFill.setEditable(true);
 		phnFill.setBounds(76, 188, 173, 20);
@@ -226,7 +229,7 @@ public class rxFillingScreen extends JFrame {
 				addFill.setCaretPosition(textPosition);
 				if (!(addFill.getText().equals(addSave.toString()))) {
 					lblNameOfPt.setForeground(Color.RED);
-				} 
+				}
 //				else if ((addFill.getText().equals(addSave.toString()))) {
 //					lblNameOfPt.setForeground(Color.BLACK);
 //				}
@@ -245,7 +248,7 @@ public class rxFillingScreen extends JFrame {
 				pnFill.setCaretPosition(textPosition);
 				if (!(pnFill.getText().equals(pnSave.toString()))) {
 					lblNameOfPt.setForeground(Color.RED);
-				} 
+				}
 //				else if ((pnFill.getText().equals(pnSave.toString()))) {
 //					lblNameOfPt.setForeground(Color.BLACK);
 //				}
@@ -294,7 +297,8 @@ public class rxFillingScreen extends JFrame {
 		lblPhn.setBounds(76, 173, 46, 14);
 		ptInfo_1.add(lblPhn);
 
-		JTextArea textArea = new JTextArea();
+		// JTextArea textArea = new JTextArea();
+
 		textArea.setBounds(321, 186, 385, 216);
 		ptInfo_1.add(textArea);
 
@@ -313,13 +317,11 @@ public class rxFillingScreen extends JFrame {
 
 				saveOldInfo = (lNameSave.toString() + "_" + fNameSave.toString() + "_" + dobSave.toString() + "_"
 						+ pnSave.toString() + "_" + phnSave.toString() + "_" + addSave.toString() + "_" + ".txt");
-				
-			//	JOptionPane.showMessageDialog(contentPane, saveOldInfo);
+
+				// JOptionPane.showMessageDialog(contentPane, saveOldInfo);
 
 				lblNameOfPt.setForeground(Color.BLACK);
-				
-				
-				
+
 				if (!(addFill.getText().equals(addSave.toString())) || !(pnFill.getText().equals(pnSave.toString()))
 						|| !(phnFill.getText().equals(phnSave.toString()))) {
 
@@ -359,6 +361,7 @@ public class rxFillingScreen extends JFrame {
 
 						// tempFileBw.write("Hi");
 						String s;
+						String g = textArea.getText();
 						while ((s = ptInfoFile.readLine()) != null) { // read a line
 							tempFileW.write(s); // write to output file
 							tempFileW.flush();
@@ -404,7 +407,7 @@ public class rxFillingScreen extends JFrame {
 						e.printStackTrace();
 					}
 
-				} 
+				}
 
 				if (!(lNameFill.getText().equals(lNameSave.toString())) || !(fNameFill.getText().equals(fNameSave))
 						|| !(dobFill.getText().equals(dobSave))) {
@@ -501,21 +504,38 @@ public class rxFillingScreen extends JFrame {
 
 				}
 
+				if (textArea.getText() != "") {
+					try {
+						FileWriter commentWriter = new FileWriter(cwd + "RxProcessor/ptFiles/" + lNameSave.toString()
+								+ "_" + fNameSave.toString() + "_" + dobSave.toString() + "_" + pnSave.toString() + "_"
+								+ phnSave.toString() + "_" + addSave.toString() + "_" + ".txt");
+						BufferedWriter commentWriterBr = new BufferedWriter(commentWriter);
+
+						commentWriter.write("% " + textArea.getText().toString() + " %");
+
+						commentWriterBr.close();
+						commentWriter.close();
+
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+
 			}
-			
+
 		});
+
 		save.setBounds(10, 11, 56, 23);
 		ptInfo_1.add(save);
 		ptInfo_1.setVisible(false);
 
 	}
 
-
-
 	public static void setTextOfFields(Object lNameTable, Object fNameTable, Object fDOB, Object fpn, Object fPHN,
 			Object fAdd) {
-		
-		
+
+	
 
 		lNameFill.setText(lNameTable.toString());
 		fNameFill.setText(fNameTable.toString());
@@ -524,14 +544,31 @@ public class rxFillingScreen extends JFrame {
 		phnFill.setText(fPHN.toString());
 		addFill.setText(fAdd.toString());
 
+//		FileWriter commentReader;
+//		try {
+//			commentReader = new FileWriter(cwd + "RxProcessor/ptFiles/" + lNameSave.toString() + "_"
+//					+ fNameSave.toString() + "_" + dobSave.toString() + "_" + pnSave.toString() + "_" + phnSave.toString()
+//					+ "_" + addSave.toString() + "_" + ".txt");
+//			BufferedWriter commentReaderBr = new BufferedWriter(commentReader);
+//			
+//			
+//			
+//			textArea.setText("");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+
+	
+
 		lNameSave = lNameTable.toString();
 		fNameSave = fNameTable.toString();
 		dobSave = fDOB.toString();
 		phnSave = fPHN.toString();
 		pnSave = fpn.toString();
 		addSave = fAdd.toString();
-		
-		//save.doClick();
+
+		// save.doClick();
 
 	}
 }

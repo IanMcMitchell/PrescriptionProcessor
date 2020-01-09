@@ -44,10 +44,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class PtSearch {
 
-	
 	protected static PtSearch ptFrame;
 	private JFrame frame;
 	private JTextField fNameField;
@@ -65,9 +66,6 @@ public class PtSearch {
 	public static String ptInfoFileName;
 
 	static String cwd = System.getProperty("user.dir");
-	
-	
-	
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -101,6 +99,14 @@ public class PtSearch {
 		}
 
 		frame = new JFrame();
+		frame.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+
+				frame.dispose();
+
+			}
+		});
 		frame.setBounds(100, 100, 632, 474);
 		frame.getContentPane().setBackground(new Color(220, 225, 200));
 		frame.getContentPane().setLayout(null);
@@ -283,14 +289,12 @@ public class PtSearch {
 								+ phnField.getText().toString() + "_" + addressField.getText().toString() + "_";
 						ptBw.newLine();
 
-						
-						
 						File ptFwInfo = new File(cwd + "RxProcessor/ptFiles/" + ptInfoFileName + ".txt");
 //						FileReader ptFwInfo2 = new FileReader(ptFwInfo);
 //						BufferedReader ptInfoBr = new BufferedReader(ptFwInfo2);
 
 						patientFileWriter = new FileWriter(ptFwInfo);
-						
+
 						ptFw.flush();
 						ptBw.flush();
 						patientFileWriter.close();
@@ -335,13 +339,38 @@ public class PtSearch {
 					window.setVisible(false);
 
 					int row = table.getSelectedRow();
+
 					Object lNameTable = (Object) model.getValueAt(row, 0);
 					Object fNameTable = (Object) model.getValueAt(row, 1);
 					Object fDOB = (Object) model.getValueAt(row, 2);
 					Object fpn = (Object) model.getValueAt(row, 3);
 					Object fPHN = (Object) model.getValueAt(row, 4);
 					Object fAdd = (Object) model.getValueAt(row, 5);
+
+					try (Scanner scan = new Scanner(new File(cwd + "RxProcessor/ptFiles/" + lNameTable.toString() + "_"
+							+ fNameTable.toString() + "_" + fDOB.toString() + "_" + fpn.toString() + "_"
+							+ fPHN.toString() + "_" + fAdd.toString() + "_" + ".txt"))) {
+
+						String[] searchName = null;
+
+						int wordCount = 0;
+						while (scan.hasNext()) {
+							String line = scan.nextLine().toString().trim();
+
+							searchName = line.toString().split("%");
+							String[] ary = searchName;
+							String comment = ary[1];
+							rxFillingScreen.textArea.setText(comment + " ");
+
+						}
+
+						scan.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+
 					rxFillingScreen.ptInfo_1.setVisible(true);
+					rxFillingScreen.patientBtn.setEnabled(true);
 					rxFillingScreen.ptInfo_1.repaint();
 					rxFillingScreen.lblNameOfPt.setText(fNameTable + " " + lNameTable);
 					rxFillingScreen.setTextOfFields(lNameTable, fNameTable, fDOB, fpn, fPHN, fAdd);
