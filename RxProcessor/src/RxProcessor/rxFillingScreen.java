@@ -271,6 +271,7 @@ public class rxFillingScreen extends JFrame {
 		x.setForeground(Color.RED);
 		x.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				textArea.setText("");
 				ptInfo_1.setVisible(false);
 			}
 		});
@@ -333,6 +334,62 @@ public class rxFillingScreen extends JFrame {
 
 				lblNameOfPt.setForeground(Color.BLACK);
 
+				if (textArea.getText() != commentSave) {
+					try {
+						FileWriter commentWriter = new FileWriter(cwd + "RxProcessor/ptFiles/" + lNameSave.toString()
+								+ "_" + fNameSave.toString() + "_" + dobSave.toString() + "_" + pnSave.toString() + "_"
+								+ phnSave.toString() + "_" + addSave.toString() + "_" + ".txt", true);
+						BufferedWriter commentWriterBr = new BufferedWriter(commentWriter);
+						commentWriterBr.newLine();
+						commentWriterBr.append("####" + textArea.getText().toString() + "####");
+						commentWriterBr.newLine();
+
+						commentWriterBr.close();
+						commentWriter.close();
+						
+						
+						File inputFile = new File(cwd + "RxProcessor/ptFiles/" + lNameSave.toString()
+						+ "_" + fNameSave.toString() + "_" + dobSave.toString() + "_" + pnSave.toString() + "_"
+						+ phnSave.toString() + "_" + addSave.toString() + "_" + ".txt");
+				        File tempFile = new File(cwd + "RxProcessor/ptFiles/" + "TEMP"+ lNameSave.toString()
+						+ "_" + fNameSave.toString() + "_" + dobSave.toString() + "_" + pnSave.toString() + "_"
+						+ phnSave.toString() + "_" + addSave.toString() + "_" + ".txt");
+
+				        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+				        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+				        String lineToRemove = "####" + commentSave + "####";
+				        String currentLine;
+
+				        while((currentLine = reader.readLine()) != null) {
+				            // trim newline when comparing with lineToRemove
+				            String trimmedLine = currentLine.trim();
+				            if(trimmedLine.equals(lineToRemove)) continue;
+				            writer.write(currentLine + System.getProperty("line.separator"));
+				        }
+				        writer.close(); 
+				        reader.close(); 
+						
+				        if (!inputFile.delete()) {
+							JOptionPane.showMessageDialog(ptInfo_1, "NO");
+							return;
+						}
+				        
+				        if (!tempFile.renameTo(inputFile)) {
+							JOptionPane.showMessageDialog(ptInfo_1, "NO 2");
+						}
+						
+						commentSave = textArea.getText();
+						
+						
+
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				
+				
 				if (!(addFill.getText().equals(addSave.toString())) || !(pnFill.getText().equals(pnSave.toString()))
 						|| !(phnFill.getText().equals(phnSave.toString()))) {
 
@@ -515,60 +572,7 @@ public class rxFillingScreen extends JFrame {
 
 				}
 
-				if (textArea.getText() != commentSave) {
-					try {
-						FileWriter commentWriter = new FileWriter(cwd + "RxProcessor/ptFiles/" + lNameSave.toString()
-								+ "_" + fNameSave.toString() + "_" + dobSave.toString() + "_" + pnSave.toString() + "_"
-								+ phnSave.toString() + "_" + addSave.toString() + "_" + ".txt", true);
-						BufferedWriter commentWriterBr = new BufferedWriter(commentWriter);
-						commentWriterBr.newLine();
-						commentWriterBr.append("####" + textArea.getText().toString() + "####");
-						commentWriterBr.newLine();
-
-						commentWriterBr.close();
-						commentWriter.close();
-						
-						
-						File inputFile = new File(cwd + "RxProcessor/ptFiles/" + lNameSave.toString()
-						+ "_" + fNameSave.toString() + "_" + dobSave.toString() + "_" + pnSave.toString() + "_"
-						+ phnSave.toString() + "_" + addSave.toString() + "_" + ".txt");
-				        File tempFile = new File(cwd + "RxProcessor/ptFiles/" + "TEMP"+ lNameSave.toString()
-						+ "_" + fNameSave.toString() + "_" + dobSave.toString() + "_" + pnSave.toString() + "_"
-						+ phnSave.toString() + "_" + addSave.toString() + "_" + ".txt");
-
-				        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-				        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-				        String lineToRemove = "####" + commentSave + "####";
-				        String currentLine;
-
-				        while((currentLine = reader.readLine()) != null) {
-				            // trim newline when comparing with lineToRemove
-				            String trimmedLine = currentLine.trim();
-				            if(trimmedLine.equals(lineToRemove)) continue;
-				            writer.write(currentLine + System.getProperty("line.separator"));
-				        }
-				        writer.close(); 
-				        reader.close(); 
-						
-				        if (!inputFile.delete()) {
-							JOptionPane.showMessageDialog(ptInfo_1, "NO");
-							return;
-						}
-				        
-				        if (!tempFile.renameTo(inputFile)) {
-							JOptionPane.showMessageDialog(ptInfo_1, "NO 2");
-						}
-						
-						commentSave = textArea.getText();
-						
-						
-
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
+				
 
 			}
 
