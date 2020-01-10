@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -35,10 +36,11 @@ import java.awt.Font;
 import javax.swing.JTextArea;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JScrollPane;
 
 public class rxFillingScreen extends JFrame {
 
-	public static JButton patientBtn = new JButton("Patient Search");;
+	
 	public static JPanel contentPane;
 	static String cwd = System.getProperty("user.dir");
 	public static JPanel ptInfo_1 = new JPanel();
@@ -57,6 +59,11 @@ public class rxFillingScreen extends JFrame {
 	public static Object phnSave;
 	private static String saveOldInfo;
 	public static JTextArea textArea = new JTextArea();
+	public static String commentSave;
+	public static JButton patientBtn = new JButton("Patient Search");
+	public static JButton prescriberBtn = new JButton("Prescriber Search");
+	public static JButton drugBtn = new JButton("Drug Search");
+	
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -108,6 +115,8 @@ public class rxFillingScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				patientBtn.setEnabled(false);
+				drugBtn.setEnabled(false);
+				prescriberBtn.setEnabled(false);
 				PtSearch ptFrame = new PtSearch();
 				ptFrame.setVisible(true);
 
@@ -117,11 +126,11 @@ public class rxFillingScreen extends JFrame {
 		patientBtn.setBounds(10, 10, 123, 23);
 		contentPane.add(patientBtn);
 
-		JButton drugBtn = new JButton("Drug Search");
+		
 		drugBtn.setBounds(143, 10, 123, 23);
 		contentPane.add(drugBtn);
 
-		JButton prescriberBtn = new JButton("Prescriber Search");
+		
 		prescriberBtn.setBounds(276, 10, 123, 23);
 		contentPane.add(prescriberBtn);
 
@@ -296,11 +305,13 @@ public class rxFillingScreen extends JFrame {
 		JLabel lblPhn = new JLabel("PHN");
 		lblPhn.setBounds(76, 173, 46, 14);
 		ptInfo_1.add(lblPhn);
-
-		// JTextArea textArea = new JTextArea();
-
-		textArea.setBounds(321, 186, 385, 216);
-		ptInfo_1.add(textArea);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(321, 186, 385, 216);
+		ptInfo_1.add(scrollPane);
+		scrollPane.setViewportView(textArea);
+		textArea.setLineWrap(true);
+		textArea.getDocument().putProperty("filterNewlines", Boolean.TRUE);
 
 //		if ((ptInfo_1.isVisible() == true) && !(addFill.getText().equals(addSave.toString())) || !(pnFill.getText().equals(pnSave.toString()))
 //				|| !(phnFill.getText().equals(phnSave.toString()))
@@ -504,17 +515,54 @@ public class rxFillingScreen extends JFrame {
 
 				}
 
-				if (textArea.getText() != "") {
+				if (textArea.getText() != commentSave) {
 					try {
 						FileWriter commentWriter = new FileWriter(cwd + "RxProcessor/ptFiles/" + lNameSave.toString()
 								+ "_" + fNameSave.toString() + "_" + dobSave.toString() + "_" + pnSave.toString() + "_"
-								+ phnSave.toString() + "_" + addSave.toString() + "_" + ".txt");
+								+ phnSave.toString() + "_" + addSave.toString() + "_" + ".txt", true);
 						BufferedWriter commentWriterBr = new BufferedWriter(commentWriter);
-
-						commentWriter.write("% " + textArea.getText().toString() + " %");
+						commentWriterBr.newLine();
+						commentWriterBr.append("####" + textArea.getText().toString() + "####");
+						commentWriterBr.newLine();
 
 						commentWriterBr.close();
 						commentWriter.close();
+						
+						
+						File inputFile = new File(cwd + "RxProcessor/ptFiles/" + lNameSave.toString()
+						+ "_" + fNameSave.toString() + "_" + dobSave.toString() + "_" + pnSave.toString() + "_"
+						+ phnSave.toString() + "_" + addSave.toString() + "_" + ".txt");
+				        File tempFile = new File(cwd + "RxProcessor/ptFiles/" + "TEMP"+ lNameSave.toString()
+						+ "_" + fNameSave.toString() + "_" + dobSave.toString() + "_" + pnSave.toString() + "_"
+						+ phnSave.toString() + "_" + addSave.toString() + "_" + ".txt");
+
+				        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+				        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+				        String lineToRemove = "####" + commentSave + "####";
+				        String currentLine;
+
+				        while((currentLine = reader.readLine()) != null) {
+				            // trim newline when comparing with lineToRemove
+				            String trimmedLine = currentLine.trim();
+				            if(trimmedLine.equals(lineToRemove)) continue;
+				            writer.write(currentLine + System.getProperty("line.separator"));
+				        }
+				        writer.close(); 
+				        reader.close(); 
+						
+				        if (!inputFile.delete()) {
+							JOptionPane.showMessageDialog(ptInfo_1, "NO");
+							return;
+						}
+				        
+				        if (!tempFile.renameTo(inputFile)) {
+							JOptionPane.showMessageDialog(ptInfo_1, "NO 2");
+						}
+						
+						commentSave = textArea.getText();
+						
+						
 
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -533,9 +581,7 @@ public class rxFillingScreen extends JFrame {
 	}
 
 	public static void setTextOfFields(Object lNameTable, Object fNameTable, Object fDOB, Object fpn, Object fPHN,
-			Object fAdd) {
-
-	
+			Object fAdd) throws IOException {
 
 		lNameFill.setText(lNameTable.toString());
 		fNameFill.setText(fNameTable.toString());
@@ -544,22 +590,24 @@ public class rxFillingScreen extends JFrame {
 		phnFill.setText(fPHN.toString());
 		addFill.setText(fAdd.toString());
 
-//		FileWriter commentReader;
-//		try {
-//			commentReader = new FileWriter(cwd + "RxProcessor/ptFiles/" + lNameSave.toString() + "_"
-//					+ fNameSave.toString() + "_" + dobSave.toString() + "_" + pnSave.toString() + "_" + phnSave.toString()
-//					+ "_" + addSave.toString() + "_" + ".txt");
-//			BufferedWriter commentReaderBr = new BufferedWriter(commentReader);
-//			
-//			
-//			
-//			textArea.setText("");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-
-	
+		BufferedReader br = new BufferedReader(new FileReader(new File(cwd + "RxProcessor/ptFiles/" + lNameTable.toString() + "_" + fNameTable.toString()
+		+ "_" + fDOB.toString() + "_" + fpn.toString() + "_" + fPHN.toString() + "_" + fAdd.toString() + "_"
+		+ ".txt")));
+		String line;
+		
+		while ((line = br.readLine()) != null) {
+		   
+			if (line.contains("####")) {
+				
+				String[] commentLine = line.split("####");
+				String[] ary = commentLine;
+				String comment = ary[1];
+				textArea.setText(comment);
+				
+			}
+			
+		}
+		br.close();
 
 		lNameSave = lNameTable.toString();
 		fNameSave = fNameTable.toString();
@@ -567,6 +615,7 @@ public class rxFillingScreen extends JFrame {
 		phnSave = fPHN.toString();
 		pnSave = fpn.toString();
 		addSave = fAdd.toString();
+		commentSave = textArea.getText().toString();
 
 		// save.doClick();
 

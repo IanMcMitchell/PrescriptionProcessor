@@ -99,6 +99,16 @@ public class PtSearch {
 		}
 
 		frame = new JFrame();
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				rxFillingScreen.patientBtn.setEnabled(true);
+				rxFillingScreen.prescriberBtn.setEnabled(true);
+				rxFillingScreen.drugBtn.setEnabled(true);
+				
+				
+			}
+		});
 		frame.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
@@ -294,9 +304,12 @@ public class PtSearch {
 //						BufferedReader ptInfoBr = new BufferedReader(ptFwInfo2);
 
 						patientFileWriter = new FileWriter(ptFwInfo);
+						BufferedWriter patientFileWriterBr = new BufferedWriter(patientFileWriter);
+						patientFileWriterBr.append("#### ####");
 
 						ptFw.flush();
 						ptBw.flush();
+						patientFileWriterBr.close();
 						patientFileWriter.close();
 						ptFw.close();
 						ptBw.close();
@@ -347,33 +360,20 @@ public class PtSearch {
 					Object fPHN = (Object) model.getValueAt(row, 4);
 					Object fAdd = (Object) model.getValueAt(row, 5);
 
-					try (Scanner scan = new Scanner(new File(cwd + "RxProcessor/ptFiles/" + lNameTable.toString() + "_"
-							+ fNameTable.toString() + "_" + fDOB.toString() + "_" + fpn.toString() + "_"
-							+ fPHN.toString() + "_" + fAdd.toString() + "_" + ".txt"))) {
-
-						String[] searchName = null;
-
-						int wordCount = 0;
-						while (scan.hasNext()) {
-							String line = scan.nextLine().toString().trim();
-
-							searchName = line.toString().split("%");
-							String[] ary = searchName;
-							String comment = ary[1];
-							rxFillingScreen.textArea.setText(comment + " ");
-
-						}
-
-						scan.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					
 
 					rxFillingScreen.ptInfo_1.setVisible(true);
 					rxFillingScreen.patientBtn.setEnabled(true);
+					rxFillingScreen.prescriberBtn.setEnabled(true);
+					rxFillingScreen.drugBtn.setEnabled(true);
 					rxFillingScreen.ptInfo_1.repaint();
 					rxFillingScreen.lblNameOfPt.setText(fNameTable + " " + lNameTable);
-					rxFillingScreen.setTextOfFields(lNameTable, fNameTable, fDOB, fpn, fPHN, fAdd);
+					try {
+						rxFillingScreen.setTextOfFields(lNameTable, fNameTable, fDOB, fpn, fPHN, fAdd);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 
 				}
 			}
