@@ -361,7 +361,7 @@ public class PtSearch {
 					Object fAdd = (Object) model.getValueAt(row, 5);
 
 					
-
+					rxFillingScreen.prInfo_1.setVisible(false);
 					rxFillingScreen.ptInfo_1.setVisible(true);
 					rxFillingScreen.patientBtn.setEnabled(true);
 					rxFillingScreen.prescriberBtn.setEnabled(true);

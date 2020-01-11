@@ -40,11 +40,12 @@ import javax.swing.JScrollPane;
 
 public class rxFillingScreen extends JFrame {
 
-	
 	public static JPanel contentPane;
 	static String cwd = System.getProperty("user.dir");
 	public static JPanel ptInfo_1 = new JPanel();
+	public static JPanel prInfo_1 = new JPanel();
 	public static JLabel lblNameOfPt = new JLabel();
+	public static JLabel lblNameOfPr = new JLabel();
 	public static JTextField lNameFill = new JTextField();
 	public static JTextField fNameFill = new JTextField();
 	public static JTextField dobFill = new JTextField();
@@ -63,7 +64,14 @@ public class rxFillingScreen extends JFrame {
 	public static JButton patientBtn = new JButton("Patient Search");
 	public static JButton prescriberBtn = new JButton("Prescriber Search");
 	public static JButton drugBtn = new JButton("Drug Search");
-	
+	public static JTextField prLastNameField = new JTextField();
+	public static JTextField prFirstNameField = new JTextField();
+	public static JTextField licenceField = new JTextField();
+	public static JTextField prAddressField = new JTextField();
+	public static JTextField prPNField = new JTextField();
+	public static JTextField faxField = new JTextField();
+	private JTextField textField;
+	private JTextField textField_1;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -122,22 +130,106 @@ public class rxFillingScreen extends JFrame {
 
 			}
 		});
+		
+		prescriberBtn.setBounds(276, 10, 123, 23);
+		contentPane.add(prescriberBtn);
+		
+		prescriberBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				patientBtn.setEnabled(false);
+				drugBtn.setEnabled(false);
+				prescriberBtn.setEnabled(false);
+				prescriberSearch prFrame = new prescriberSearch();
+				prFrame.setVisible(true);
+
+			}
+		});
+		
 		contentPane.setLayout(null);
+		prInfo_1.setBackground(new Color(230, 230, 250));
+
+		prInfo_1.setBounds(10, 35, 816, 459);
+		contentPane.add(prInfo_1);
+		prInfo_1.setLayout(null);
+
+		licenceField.setBounds(564, 88, 153, 20);
+		prInfo_1.add(licenceField);
+
+		prAddressField.setColumns(10);
+		prAddressField.setBounds(73, 157, 318, 20);
+		prInfo_1.add(prAddressField);
+
+		prPNField.setColumns(10);
+		prPNField.setBounds(564, 157, 153, 20);
+		prInfo_1.add(prPNField);
+
+		faxField.setEditable(true);
+		faxField.setColumns(10);
+		faxField.setBackground(new Color(255, 255, 255));
+		faxField.setBounds(401, 157, 153, 20);
+		prInfo_1.add(faxField);
+
+		JLabel label = new JLabel("Last Name");
+		label.setBounds(73, 69, 50, 14);
+		prInfo_1.add(label);
+
+		JLabel label_1 = new JLabel("First Name");
+		label_1.setBounds(332, 69, 51, 14);
+		prInfo_1.add(label_1);
+
+		JLabel lblLicense = new JLabel("License");
+		lblLicense.setBounds(564, 69, 35, 14);
+		prInfo_1.add(lblLicense);
+
+		JLabel label_2 = new JLabel("Street Address ");
+		label_2.setBounds(73, 137, 75, 14);
+		prInfo_1.add(label_2);
+
+		JLabel label_3 = new JLabel("Phone Number");
+		label_3.setBounds(564, 137, 70, 14);
+		prInfo_1.add(label_3);
+
+		JLabel lblFaxNumber = new JLabel("Fax Number");
+		lblFaxNumber.setBounds(401, 137, 58, 14);
+		prInfo_1.add(lblFaxNumber);
+
+		textField = new JTextField();
+		textField.setBounds(73, 88, 233, 20);
+		prInfo_1.add(textField);
+		textField.setColumns(10);
+
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(321, 88, 233, 20);
+		prInfo_1.add(textField_1);
+
+		JButton prSave = new JButton("\u2611 ");
+		prSave.setBounds(10, 11, 56, 23);
+		prInfo_1.add(prSave);
+
+		JButton prX = new JButton("X");
+		prX.setForeground(Color.RED);
+		prX.setBounds(766, 11, 40, 23);
+		prInfo_1.add(prX);
+
+		
+		lblNameOfPr.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		lblNameOfPr.setBounds(73, 11, 680, 23);
+		prInfo_1.add(lblNameOfPr);
+		prInfo_1.setVisible(false);
 		patientBtn.setBounds(10, 10, 123, 23);
 		contentPane.add(patientBtn);
 
-		
 		drugBtn.setBounds(143, 10, 123, 23);
 		contentPane.add(drugBtn);
 
 		
-		prescriberBtn.setBounds(276, 10, 123, 23);
-		contentPane.add(prescriberBtn);
 
 		ptInfo_1 = new JPanel();
+		ptInfo_1.setBounds(10, 38, 816, 456);
+		contentPane.add(ptInfo_1);
 		ptInfo_1.setToolTipText("F12 for New Rx");
-
-		ptInfo_1.setBounds(11, 38, 816, 456);
 		ptInfo_1.setBackground(new Color(220, 225, 200));
 		ptInfo_1.setLayout(null);
 
@@ -204,8 +296,6 @@ public class rxFillingScreen extends JFrame {
 		dobFill.setBounds(578, 82, 128, 20);
 		ptInfo_1.add(dobFill);
 		dobFill.setColumns(10);
-
-		contentPane.add(ptInfo_1);
 
 		phnFill = new JTextField();
 		phnFill.addKeyListener(new KeyAdapter() {
@@ -306,7 +396,7 @@ public class rxFillingScreen extends JFrame {
 		JLabel lblPhn = new JLabel("PHN");
 		lblPhn.setBounds(76, 173, 46, 14);
 		ptInfo_1.add(lblPhn);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(321, 186, 385, 216);
 		ptInfo_1.add(scrollPane);
@@ -314,14 +404,17 @@ public class rxFillingScreen extends JFrame {
 		textArea.setLineWrap(true);
 		textArea.getDocument().putProperty("filterNewlines", Boolean.TRUE);
 
-//		if ((ptInfo_1.isVisible() == true) && !(addFill.getText().equals(addSave.toString())) || !(pnFill.getText().equals(pnSave.toString()))
-//				|| !(phnFill.getText().equals(phnSave.toString()))
-//				|| !(lNameFill.getText().equals(lNameSave.toString())) || !(fNameFill.getText().equals(fNameSave))) {
-//			
-//			lblNameOfPt.setBackground(Color.RED);
-//			return;
-//
-//		} 
+		// if ((ptInfo_1.isVisible() == true) &&
+		// !(addFill.getText().equals(addSave.toString())) ||
+		// !(pnFill.getText().equals(pnSave.toString()))
+		// || !(phnFill.getText().equals(phnSave.toString()))
+		// || !(lNameFill.getText().equals(lNameSave.toString())) ||
+		// !(fNameFill.getText().equals(fNameSave))) {
+		//
+		// lblNameOfPt.setBackground(Color.RED);
+		// return;
+		//
+		// }
 
 		JButton save = new JButton("\u2611 ");
 		save.addActionListener(new ActionListener() {
@@ -346,50 +439,47 @@ public class rxFillingScreen extends JFrame {
 
 						commentWriterBr.close();
 						commentWriter.close();
-						
-						
-						File inputFile = new File(cwd + "RxProcessor/ptFiles/" + lNameSave.toString()
-						+ "_" + fNameSave.toString() + "_" + dobSave.toString() + "_" + pnSave.toString() + "_"
-						+ phnSave.toString() + "_" + addSave.toString() + "_" + ".txt");
-				        File tempFile = new File(cwd + "RxProcessor/ptFiles/" + "TEMP"+ lNameSave.toString()
-						+ "_" + fNameSave.toString() + "_" + dobSave.toString() + "_" + pnSave.toString() + "_"
-						+ phnSave.toString() + "_" + addSave.toString() + "_" + ".txt");
 
-				        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-				        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+						File inputFile = new File(cwd + "RxProcessor/ptFiles/" + lNameSave.toString() + "_"
+								+ fNameSave.toString() + "_" + dobSave.toString() + "_" + pnSave.toString() + "_"
+								+ phnSave.toString() + "_" + addSave.toString() + "_" + ".txt");
+						File tempFile = new File(cwd + "RxProcessor/ptFiles/" + "TEMP" + lNameSave.toString() + "_"
+								+ fNameSave.toString() + "_" + dobSave.toString() + "_" + pnSave.toString() + "_"
+								+ phnSave.toString() + "_" + addSave.toString() + "_" + ".txt");
 
-				        String lineToRemove = "####" + commentSave + "####";
-				        String currentLine;
+						BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+						BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 
-				        while((currentLine = reader.readLine()) != null) {
-				            // trim newline when comparing with lineToRemove
-				            String trimmedLine = currentLine.trim();
-				            if(trimmedLine.equals(lineToRemove)) continue;
-				            writer.write(currentLine + System.getProperty("line.separator"));
-				        }
-				        writer.close(); 
-				        reader.close(); 
-						
-				        if (!inputFile.delete()) {
+						String lineToRemove = "####" + commentSave + "####";
+						String currentLine;
+
+						while ((currentLine = reader.readLine()) != null) {
+							// trim newline when comparing with lineToRemove
+							String trimmedLine = currentLine.trim();
+							if (trimmedLine.equals(lineToRemove))
+								continue;
+							writer.write(currentLine + System.getProperty("line.separator"));
+						}
+						writer.close();
+						reader.close();
+
+						if (!inputFile.delete()) {
 							JOptionPane.showMessageDialog(ptInfo_1, "NO");
 							return;
 						}
-				        
-				        if (!tempFile.renameTo(inputFile)) {
+
+						if (!tempFile.renameTo(inputFile)) {
 							JOptionPane.showMessageDialog(ptInfo_1, "NO 2");
 						}
-						
+
 						commentSave = textArea.getText();
-						
-						
 
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
-				
-				
+
 				if (!(addFill.getText().equals(addSave.toString())) || !(pnFill.getText().equals(pnSave.toString()))
 						|| !(phnFill.getText().equals(phnSave.toString()))) {
 
@@ -572,8 +662,6 @@ public class rxFillingScreen extends JFrame {
 
 				}
 
-				
-
 			}
 
 		});
@@ -594,22 +682,22 @@ public class rxFillingScreen extends JFrame {
 		phnFill.setText(fPHN.toString());
 		addFill.setText(fAdd.toString());
 
-		BufferedReader br = new BufferedReader(new FileReader(new File(cwd + "RxProcessor/ptFiles/" + lNameTable.toString() + "_" + fNameTable.toString()
-		+ "_" + fDOB.toString() + "_" + fpn.toString() + "_" + fPHN.toString() + "_" + fAdd.toString() + "_"
-		+ ".txt")));
+		BufferedReader br = new BufferedReader(new FileReader(new File(cwd + "RxProcessor/ptFiles/"
+				+ lNameTable.toString() + "_" + fNameTable.toString() + "_" + fDOB.toString() + "_" + fpn.toString()
+				+ "_" + fPHN.toString() + "_" + fAdd.toString() + "_" + ".txt")));
 		String line;
-		
+
 		while ((line = br.readLine()) != null) {
-		   
+
 			if (line.contains("####")) {
-				
+
 				String[] commentLine = line.split("####");
 				String[] ary = commentLine;
 				String comment = ary[1];
 				textArea.setText(comment);
-				
+
 			}
-			
+
 		}
 		br.close();
 
@@ -622,6 +710,12 @@ public class rxFillingScreen extends JFrame {
 		commentSave = textArea.getText().toString();
 
 		// save.doClick();
+
+	}
+
+	public static void setTextOfPrFields(Object lNameTable, Object fNameTable, Object fLicense, Object fpn, Object fFax,
+			Object fAdd) {
+		// TODO Auto-generated method stub
 
 	}
 }

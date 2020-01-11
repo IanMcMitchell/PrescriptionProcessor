@@ -94,6 +94,8 @@ public class LoginRxProcessor {
 		empFile.mkdir();
 		File ptFile = new File(cwd + "RxProcessor/ptFiles");
 		ptFile.mkdir();
+		File prFile = new File(cwd + "RxProcessor/prFiles");
+		prFile.mkdir();
 		// File pharmacistList = new File(cwd +
 		// "RxProcessor/pharmacistFiles/pharmacistList.txt");
 		// pharmacistList.mkdir();
