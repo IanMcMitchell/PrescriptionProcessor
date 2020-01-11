@@ -58,20 +58,28 @@ public class rxFillingScreen extends JFrame {
 	public static Object addSave;
 	public static Object pnSave;
 	public static Object phnSave;
+	
+	public static Object prLNameSave;
+	public static Object prFNameSave;
+	public static Object licenseSave;
+	public static Object prAddSave;
+	public static Object prPNSave;
+	public static Object faxSave;
+	
 	private static String saveOldInfo;
+	private static String saveOldInfoPr;
 	public static JTextArea textArea = new JTextArea();
 	public static String commentSave;
 	public static JButton patientBtn = new JButton("Patient Search");
 	public static JButton prescriberBtn = new JButton("Prescriber Search");
 	public static JButton drugBtn = new JButton("Drug Search");
-	public static JTextField prLastNameField = new JTextField();
-	public static JTextField prFirstNameField = new JTextField();
-	public static JTextField licenceField = new JTextField();
+	public static JTextField lNameFieldPr = new JTextField();
+	public static JTextField fNameFieldPr = new JTextField();
+	public static JTextField licenseField = new JTextField();
 	public static JTextField prAddressField = new JTextField();
 	public static JTextField prPNField = new JTextField();
 	public static JTextField faxField = new JTextField();
-	private JTextField textField;
-	private JTextField textField_1;
+	
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -153,22 +161,58 @@ public class rxFillingScreen extends JFrame {
 		contentPane.add(prInfo_1);
 		prInfo_1.setLayout(null);
 
-		licenceField.setBounds(564, 88, 153, 20);
-		prInfo_1.add(licenceField);
+		licenseField.setBounds(564, 88, 153, 20);
+		prInfo_1.add(licenseField);
+		
+		licenseField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				int textPosition = licenseField.getCaretPosition();
+				licenseField.setText(licenseField.getText().toUpperCase());
+				licenseField.setCaretPosition(textPosition);
+			}
+		});
 
 		prAddressField.setColumns(10);
 		prAddressField.setBounds(73, 157, 318, 20);
 		prInfo_1.add(prAddressField);
+		
+		prAddressField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				int textPosition = prAddressField.getCaretPosition();
+				prAddressField.setText(prAddressField.getText().toUpperCase());
+				prAddressField.setCaretPosition(textPosition);
+			}
+		});
 
 		prPNField.setColumns(10);
 		prPNField.setBounds(564, 157, 153, 20);
 		prInfo_1.add(prPNField);
+		
+		prPNField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				int textPosition = prPNField.getCaretPosition();
+				prPNField.setText(prPNField.getText().toUpperCase());
+				prPNField.setCaretPosition(textPosition);
+			}
+		});
 
 		faxField.setEditable(true);
 		faxField.setColumns(10);
 		faxField.setBackground(new Color(255, 255, 255));
 		faxField.setBounds(401, 157, 153, 20);
 		prInfo_1.add(faxField);
+		
+		faxField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				int textPosition = faxField.getCaretPosition();
+				faxField.setText(faxField.getText().toUpperCase());
+				faxField.setCaretPosition(textPosition);
+			}
+		});
 
 		JLabel label = new JLabel("Last Name");
 		label.setBounds(73, 69, 50, 14);
@@ -194,21 +238,48 @@ public class rxFillingScreen extends JFrame {
 		lblFaxNumber.setBounds(401, 137, 58, 14);
 		prInfo_1.add(lblFaxNumber);
 
-		textField = new JTextField();
-		textField.setBounds(73, 88, 233, 20);
-		prInfo_1.add(textField);
-		textField.setColumns(10);
+		lNameFieldPr = new JTextField();
+		lNameFieldPr.setBounds(73, 88, 233, 20);
+		prInfo_1.add(lNameFieldPr);
+		lNameFieldPr.setColumns(10);
 
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(321, 88, 233, 20);
-		prInfo_1.add(textField_1);
+		lNameFieldPr.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				int textPosition = lNameFieldPr.getCaretPosition();
+				lNameFieldPr.setText(lNameFieldPr.getText().toUpperCase());
+				lNameFieldPr.setCaretPosition(textPosition);
+			}
+		});
+		
+		fNameFieldPr = new JTextField();
+		fNameFieldPr.setColumns(10);
+		fNameFieldPr.setBounds(321, 88, 233, 20);
+		prInfo_1.add(fNameFieldPr);
 
+		fNameFieldPr.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				int textPosition = fNameFieldPr.getCaretPosition();
+				fNameFieldPr.setText(fNameFieldPr.getText().toUpperCase());
+				fNameFieldPr.setCaretPosition(textPosition);
+			}
+		});
+		
+		
 		JButton prSave = new JButton("\u2611 ");
 		prSave.setBounds(10, 11, 56, 23);
 		prInfo_1.add(prSave);
 
 		JButton prX = new JButton("X");
+
+		prX.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				prInfo_1.setVisible(false);
+
+			}
+		});
 		prX.setForeground(Color.RED);
 		prX.setBounds(766, 11, 40, 23);
 		prInfo_1.add(prX);
@@ -245,7 +316,7 @@ public class rxFillingScreen extends JFrame {
 				lNameFill.setText(lNameFill.getText().toUpperCase());
 				lNameFill.setCaretPosition(textPosition);
 				if (!(lNameFill.getText().equals(lNameSave.toString()))) {
-					lblNameOfPt.setForeground(Color.RED);
+					//lblNameOfPt.setForeground(Color.RED);
 				}
 //				else if ((lNameFill.getText().equals(lNameSave.toString()))) {
 //					lblNameOfPt.setForeground(Color.BLACK);
@@ -265,7 +336,7 @@ public class rxFillingScreen extends JFrame {
 				fNameFill.setText(fNameFill.getText().toUpperCase());
 				fNameFill.setCaretPosition(textPosition);
 				if (!(fNameFill.getText().equals(fNameSave.toString()))) {
-					lblNameOfPt.setForeground(Color.RED);
+					//lblNameOfPt.setForeground(Color.RED);
 				}
 //				else if ((fNameFill.getText().equals(fNameSave.toString()))) {
 //					lblNameOfPt.setForeground(Color.BLACK);
@@ -285,7 +356,7 @@ public class rxFillingScreen extends JFrame {
 				dobFill.setText(dobFill.getText().toUpperCase());
 				dobFill.setCaretPosition(textPosition);
 				if (!(dobFill.getText().equals(dobSave.toString()))) {
-					lblNameOfPt.setForeground(Color.RED);
+					//lblNameOfPt.setForeground(Color.RED);
 				}
 //				else if ((dobFill.getText().equals(dobSave.toString()))) {
 //					lblNameOfPt.setForeground(Color.BLACK);
@@ -305,7 +376,7 @@ public class rxFillingScreen extends JFrame {
 				phnFill.setText(phnFill.getText().toUpperCase());
 				phnFill.setCaretPosition(textPosition);
 				if (!(phnFill.getText().equals(phnSave.toString()))) {
-					lblNameOfPt.setForeground(Color.RED);
+					//lblNameOfPt.setForeground(Color.RED);
 				}
 //					else if ((phnFill.getText().equals(phnSave.toString()))) {
 //					lblNameOfPt.setForeground(Color.BLACK);
@@ -327,7 +398,7 @@ public class rxFillingScreen extends JFrame {
 				addFill.setText(addFill.getText().toUpperCase());
 				addFill.setCaretPosition(textPosition);
 				if (!(addFill.getText().equals(addSave.toString()))) {
-					lblNameOfPt.setForeground(Color.RED);
+					//lblNameOfPt.setForeground(Color.RED);
 				}
 //				else if ((addFill.getText().equals(addSave.toString()))) {
 //					lblNameOfPt.setForeground(Color.BLACK);
@@ -346,7 +417,7 @@ public class rxFillingScreen extends JFrame {
 				pnFill.setText(pnFill.getText().toUpperCase());
 				pnFill.setCaretPosition(textPosition);
 				if (!(pnFill.getText().equals(pnSave.toString()))) {
-					lblNameOfPt.setForeground(Color.RED);
+				//	lblNameOfPt.setForeground(Color.RED);
 				}
 //				else if ((pnFill.getText().equals(pnSave.toString()))) {
 //					lblNameOfPt.setForeground(Color.BLACK);
@@ -669,6 +740,120 @@ public class rxFillingScreen extends JFrame {
 		save.setBounds(10, 11, 56, 23);
 		ptInfo_1.add(save);
 		ptInfo_1.setVisible(false);
+		
+		prSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				
+				saveOldInfoPr = (prLNameSave.toString() + "_" + prFNameSave.toString() + "_" + licenseSave.toString() + "_"
+						+ prPNSave.toString() + "_" + faxSave.toString() + "_" + prAddSave.toString() + "_" + ".txt");
+				
+				try {
+					File inputFilePr = new File(cwd + "RxProcessor/prFiles/prList.txt");
+					File tempFilePr = new File(cwd + "RxProcessor/prFiles/prListTemp.txt");
+					BufferedReader readerPr = new BufferedReader(new FileReader(inputFilePr));
+					BufferedWriter writerPr = new BufferedWriter(new FileWriter(tempFilePr));
+					
+					
+					
+					String lineToRemovePr = prLNameSave.toString() + "/" + prFNameSave.toString() + "/"
+							+ licenseSave.toString() + "/" + prPNSave.toString() + "/" + faxSave.toString() + "/"
+							+ prAddSave.toString() + "/";
+					
+					
+					
+					
+					
+					
+					
+					String currentLinePr;
+					while ((currentLinePr = readerPr.readLine()) != null) {
+						String trimmedLinePr = currentLinePr.trim();
+						if (trimmedLinePr.equals(lineToRemovePr))
+							continue;
+						writerPr.write(currentLinePr + System.getProperty("line.separator"));
+
+					}
+					writerPr.write(lNameFieldPr.getText().toString() + "/" + fNameFieldPr.getText().toString() + "/"
+							+ licenseField.getText().toString() + "/" + prPNField.getText().toString() + "/"
+							+ faxField.getText().toString() + "/" + prAddressField.getText().toString() + "/");
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					File tempPrFile = new File(cwd + "RxProcessor/prFiles/" + lNameFieldPr.getText().toString()
+							+ "_" + fNameFieldPr.getText().toString() + "_" + licenseField.getText().toString() + "_"
+							+ prPNField.getText().toString() + "_" + faxField.getText().toString() + "_"
+							+ prAddressField.getText().toString() + "_" + ".txt");
+					FileWriter tempFileWpr = new FileWriter(tempPrFile);
+					BufferedWriter tempFileBwPr = new BufferedWriter(tempFileWpr);
+
+					FileReader prInfoFileReader = new FileReader(
+							cwd + "RxProcessor/prFiles/" + prLNameSave.toString() + "_" + prFNameSave.toString()
+									+ "_" + licenseSave.toString() + "_" + prPNSave.toString() + "_"
+									+ faxSave.toString() + "_" + prAddSave.toString() + "_" + ".txt");
+					BufferedReader prInfoFile = new BufferedReader(prInfoFileReader);
+
+					// tempFileBw.write("Hi");
+					String s;
+					while ((s = prInfoFile.readLine()) != null) { // read a line
+						tempFileWpr.write(s); // write to output file
+						tempFileWpr.flush();
+					}
+					prInfoFile.close();
+					tempFileWpr.close();
+
+					tempFileBwPr.close();
+					tempFileWpr.close();
+					writerPr.newLine();
+					writerPr.close();
+					readerPr.close();
+
+					lblNameOfPr.setText(fNameFieldPr.getText().toString() + " " + lNameFieldPr.getText().toString());
+					
+					if (!inputFilePr.delete()) {
+						JOptionPane.showMessageDialog(ptInfo_1, "NO");
+						return;
+					}
+
+					if (!tempFilePr.renameTo(inputFilePr)) {
+						JOptionPane.showMessageDialog(ptInfo_1, "NO 2");
+					}
+
+					Files.deleteIfExists(Paths.get(cwd + "RxProcessor/prFiles/" + saveOldInfoPr));
+
+					prLNameSave = lNameFieldPr.getText().toString();
+					prFNameSave = fNameFieldPr.getText().toString();
+					licenseSave = licenseField.getText().toString();
+					faxSave = faxField.getText().toString();
+					prPNSave = prPNField.getText().toString();
+					prAddSave = prAddressField.getText().toString();
+					
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+
+			}
+		});
+		
+		
 
 	}
 
@@ -715,7 +900,19 @@ public class rxFillingScreen extends JFrame {
 
 	public static void setTextOfPrFields(Object lNameTable, Object fNameTable, Object fLicense, Object fpn, Object fFax,
 			Object fAdd) {
-		// TODO Auto-generated method stub
+		lNameFieldPr.setText(lNameTable.toString());
+		fNameFieldPr.setText(fNameTable.toString());
+		licenseField.setText(fLicense.toString());
+		prPNField.setText(fpn.toString());
+		faxField.setText(fFax.toString());
+		prAddressField.setText(fAdd.toString());
+		
+		prLNameSave = lNameTable.toString();
+		prFNameSave = fNameTable.toString();
+		licenseSave = fLicense.toString();
+		faxSave = fFax.toString();
+		prPNSave = fpn.toString();
+		prAddSave = fAdd.toString();
 
 	}
 }
