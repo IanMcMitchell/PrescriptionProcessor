@@ -48,24 +48,26 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
 public class prescriberSearch {
-
-	protected static prescriberSearch ptFrame;
+	
 	private JFrame frame;
+	
 	private JTextField fNameField;
 	private JTextField lNameField;
 	private JTextField addressField;
 	private JTextField pnField;
-	private JLabel lblAddress;
-	//protected Writer ptBw;
-	public String fName = null;
-	public String lName = null;
-	public static File prFwInfo;
-	public static FileWriter prFileWriter;
-	public static String prInfoFileName;
-
-	static String cwd = System.getProperty("user.dir");
 	private JTextField faxField;
 	private JTextField licenseField;
+	
+	private JLabel lblAddress;
+	public static String prInfoFileName;
+	
+	public String fName = null;
+	public String lName = null;
+	
+	public static File prFwInfo;
+	public static FileWriter prFileWriter;
+	
+	static String cwd = System.getProperty("user.dir");
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -198,13 +200,12 @@ public class prescriberSearch {
 		lblAddress = new JLabel("Address");
 		lblAddress.setBounds(31, 68, 46, 14);
 		frame.getContentPane().add(lblAddress);
-		
-		
+
 		faxField = new JTextField();
 		faxField.setBounds(107, 96, 165, 20);
 		frame.getContentPane().add(faxField);
 		faxField.setColumns(10);
-		
+
 		faxField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -226,8 +227,6 @@ public class prescriberSearch {
 				licenseField.setCaretPosition(textPosition);
 			}
 		});
-		
-		
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(21, 143, 573, 254);
@@ -243,41 +242,28 @@ public class prescriberSearch {
 		model.addColumn("Phone #");
 		model.addColumn("Fax #");
 		model.addColumn("Address");
-		
+
 		JButton search = new JButton("Search");
 		search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
-				
+
 				model.setRowCount(0);
 
 				String searchVariables = lNameField.getText().toString() + "/" + fNameField.getText().toString();
 
-				
+				prescriberSearch prSeacrh = new prescriberSearch();
+				try {
+					prSeacrh.parseFile(cwd + "RxProcessor/prFiles/prList.txt", lNameField.getText().toString(),
+							fNameField.getText().toString(), model, licenseField.getText().toString(),
+							pnField.getText().toString(), faxField.getText().toString(),
+							addressField.getText().toString());
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
 
-					prescriberSearch prSeacrh = new prescriberSearch();
-					try {
-						prSeacrh.parseFile(cwd + "RxProcessor/prFiles/prList.txt", lNameField.getText().toString(),
-								fNameField.getText().toString(), model, licenseField.getText().toString(),
-								pnField.getText().toString(), faxField.getText().toString(),
-								addressField.getText().toString());
-					} catch (FileNotFoundException e1) {
-						e1.printStackTrace();
-					
 				}
 			}
 		});
-				
-				
-				
-				
-				
-				
-				
-				
-				
-		
+
 		search.setBounds(505, 401, 89, 23);
 		frame.getContentPane().add(search);
 
@@ -300,8 +286,6 @@ public class prescriberSearch {
 					prBw.newLine();
 
 					File ptFwInfo = new File(cwd + "RxProcessor/prFiles/" + prInfoFileName + ".txt");
-//					FileReader ptFwInfo2 = new FileReader(pt9wInfo);
-//					BufferedReader ptInfoBr = new BufferedReader(ptFwInfo2);
 
 					prFileWriter = new FileWriter(ptFwInfo);
 					BufferedWriter prFileWriterBr = new BufferedWriter(prFileWriter);
@@ -313,10 +297,6 @@ public class prescriberSearch {
 					prFileWriter.close();
 					prFw.close();
 					prBw.close();
-
-					// Window window = SwingUtilities.windowForComponent(table);
-
-					// window.setVisible(false);
 
 					search.doClick();
 
@@ -331,8 +311,6 @@ public class prescriberSearch {
 		newPrescriber.setBounds(406, 401, 89, 23);
 		frame.getContentPane().add(newPrescriber);
 
-		
-
 		JLabel lblFax = new JLabel("Fax #");
 		lblFax.setBounds(41, 99, 46, 14);
 		frame.getContentPane().add(lblFax);
@@ -341,9 +319,6 @@ public class prescriberSearch {
 		lblLicense.setBounds(356, 68, 46, 14);
 		frame.getContentPane().add(lblLicense);
 
-		
-	
-		
 		MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent mouseEvent) {
 				if (mouseEvent.getClickCount() == 2) {
@@ -361,8 +336,8 @@ public class prescriberSearch {
 					Object fFax = (Object) model.getValueAt(row, 4);
 					Object fAdd = (Object) model.getValueAt(row, 5);
 
-					
 					rxFillingScreen.ptInfo_1.setVisible(false);
+					rxFillingScreen.drugInfo_1.setVisible(false);
 					rxFillingScreen.prInfo_1.setVisible(true);
 					rxFillingScreen.patientBtn.setEnabled(true);
 					rxFillingScreen.prescriberBtn.setEnabled(true);
@@ -370,21 +345,17 @@ public class prescriberSearch {
 					rxFillingScreen.prInfo_1.repaint();
 					rxFillingScreen.lblNameOfPr.setText(fNameTable + " " + lNameTable);
 					rxFillingScreen.setTextOfPrFields(lNameTable, fNameTable, fLicense, fpn, fFax, fAdd);
-					
+
 				}
 			}
 		};
 
 		table.addMouseListener(mouseListener);
-		
-	
-		
 
 	}
-	
-	
-	public void parseFile(String fileName, String lNameSearch, String fNameSearch, DefaultTableModel model, String licenseSearch,
-			String pn, String faxSearch, String add) throws FileNotFoundException {
+
+	public void parseFile(String fileName, String lNameSearch, String fNameSearch, DefaultTableModel model,
+			String licenseSearch, String pn, String faxSearch, String add) throws FileNotFoundException {
 		try (Scanner scan = new Scanner(new File(fileName))) {
 			String[] searchName = null;
 			String[] fieldValues = null;
@@ -398,8 +369,8 @@ public class prescriberSearch {
 			while (scan.hasNext()) {
 				String line = scan.nextLine().toString().trim();
 
-				if (line.contains(lNameSearch) && line.contains(fNameSearch) && line.contains(licenseSearch) && line.contains(pn)
-						&& line.contains(faxSearch) && line.contains(add)) {
+				if (line.contains(lNameSearch) && line.contains(fNameSearch) && line.contains(licenseSearch)
+						&& line.contains(pn) && line.contains(faxSearch) && line.contains(add)) {
 
 					searchName = line.toString().split("/");
 					String[] ary = searchName;
@@ -411,10 +382,10 @@ public class prescriberSearch {
 					address = ary[5];
 
 					if ((lName.startsWith(lNameSearch)) && (fName.startsWith(fNameSearch))
-							&& (prLicense.startsWith(licenseSearch.toString())) && (phoneNumber.startsWith(pn.toString()))
-							&& (faxNumber.startsWith(faxSearch.toString())) && (address.contains(add.toString()))) {
+							&& (prLicense.startsWith(licenseSearch.toString()))
+							&& (phoneNumber.startsWith(pn.toString())) && (faxNumber.startsWith(faxSearch.toString()))
+							&& (address.contains(add.toString()))) {
 
-						
 						wordCount++;
 
 					}
@@ -430,7 +401,6 @@ public class prescriberSearch {
 		}
 
 	}
-	
 
 	private void TFKeyTypedNumerical(java.awt.event.KeyEvent evt) {
 

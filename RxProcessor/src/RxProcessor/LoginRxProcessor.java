@@ -74,16 +74,12 @@ public class LoginRxProcessor {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (InstantiationException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (IllegalAccessException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (UnsupportedLookAndFeelException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		File mainFile = new File(cwd + "RxProcessor");
@@ -96,9 +92,8 @@ public class LoginRxProcessor {
 		ptFile.mkdir();
 		File prFile = new File(cwd + "RxProcessor/prFiles");
 		prFile.mkdir();
-		// File pharmacistList = new File(cwd +
-		// "RxProcessor/pharmacistFiles/pharmacistList.txt");
-		// pharmacistList.mkdir();
+		File drugFiles = new File(cwd + "RxProcessor/drugFiles");
+		drugFiles.mkdir();
 
 		String cwd = System.getProperty("user.dir");
 
@@ -115,7 +110,7 @@ public class LoginRxProcessor {
 		frame.setLocationRelativeTo(null);
 
 		Choice pharmChoice = new Choice();
-		
+
 		JLabel lblSelectPharmacist = DefaultComponentFactory.getInstance().createTitle("Select Pharmacist ");
 		lblSelectPharmacist.setBounds(77, 11, 146, 14);
 		frame.getContentPane().add(lblSelectPharmacist);
@@ -125,23 +120,20 @@ public class LoginRxProcessor {
 		buttonAddPharmacist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				// NewPharmacist newPharmFrame = new NewPharmacist();
-				// newPharmFrame.setVisible(true);
-				
 				if (pharmChoice.getItemCount() == 0) {
 					launchCounter = 0;
-					
+
 					NewPharmacist npf = new NewPharmacist();
 					npf.setVisible(true);
-					
+
 					frame.dispose();
 				} else {
-				
-				NEorNP = 1;
-				PharmPasswordWindow ppw = new PharmPasswordWindow();
-				ppw.setVisible(true);
 
-				frame.dispose();
+					NEorNP = 1;
+					PharmPasswordWindow ppw = new PharmPasswordWindow();
+					ppw.setVisible(true);
+
+					frame.dispose();
 				}
 			}
 		});
@@ -149,41 +141,20 @@ public class LoginRxProcessor {
 		buttonAddPharmacist.setBounds(10, 98, 224, 23);
 		frame.getContentPane().add(buttonAddPharmacist);
 
-		// String[] items = { pharmOptions1, pharmOptions2, pharmOptions3 };
-
 		List<String> strings = new ArrayList<String>();
 		String[] searchName = null;
-		
 
-//		PrintWriter outputStream = new PrintWriter(
-//				new FileOutputStream(cwd + "RxProcessor/pharmacistFiles/pharmacistList.txt", true));
-//		// ObjectOutputStream outputStream = new ObjectOutputStream(new
-//		// FileOutputStream(cwd + "RxProcessor/pharmacistFiles/pharmacistList.txt"));
-//		Scanner inputStream = new Scanner(cwd + "RxProcessor/pharmacistFiles/pharmacistList.txt");
-//
-//		
-//		do  {
-//			String line1 = inputStream.nextLine();
-//			if (line1.equals("First Launch, Password = 1234/1234")) {
-//				outputStream.append("First Launch, Password = 1234/1234");
-//			}
-//		} while (inputStream.hasNextLine()) ;
-//		outputStream.close();
-		
-		
-		
 		try {
 
 			BufferedReader input = new BufferedReader(
 					new FileReader(cwd + "RxProcessor/pharmacistFiles/pharmacistList.txt"));
-			
+
 			try {
 
 				String line = null;
 				String id = null;
 				name = null;
 				while ((line = input.readLine()) != null) {
-					// strings.add(line);
 					searchName = line.split("/");
 					String[] ary = searchName;
 					id = ary[1];
@@ -206,10 +177,6 @@ public class LoginRxProcessor {
 
 		String[] choose = strings.toArray(new String[] {});
 
-		// JComboBox PharmacistSelect = new JComboBox<Object>(choose);
-		// PharmacistSelect.setBounds(10, 36, 100, 20);
-		// frame.getContentPane().add(PharmacistSelect);
-
 		for (int i = 0; i < choose.length; i++) {
 			// pharmChoice.add(choose[i]);
 
@@ -224,12 +191,9 @@ public class LoginRxProcessor {
 			public void actionPerformed(ActionEvent e) {
 
 				Object varName = (Object) pharmChoice.getSelectedItem();
-				// String cbvalue = (String) pharmChoice.getSelectedItem();
 
 				EmployeeLogin d = new EmployeeLogin();
 				d.setVisible(true);
-
-				// JOptionPane.showMessageDialog(frame, varName);
 
 				frame.dispose();
 

@@ -362,6 +362,7 @@ public class PtSearch {
 
 					
 					rxFillingScreen.prInfo_1.setVisible(false);
+					rxFillingScreen.drugInfo_1.setVisible(false);
 					rxFillingScreen.ptInfo_1.setVisible(true);
 					rxFillingScreen.patientBtn.setEnabled(true);
 					rxFillingScreen.prescriberBtn.setEnabled(true);
