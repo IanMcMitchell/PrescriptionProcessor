@@ -48,25 +48,32 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
 public class prescriberSearch {
-	
+
 	private JFrame frame;
-	
+
 	private JTextField fNameField;
 	private JTextField lNameField;
 	private JTextField addressField;
 	private JTextField pnField;
 	private JTextField faxField;
 	private JTextField licenseField;
-	
+
+	public Object lNameTable;
+	public Object fNameTable;
+	public Object fLicense;
+	public Object fpn;
+	public Object fFax;
+	public Object fAdd;
+
 	private JLabel lblAddress;
 	public static String prInfoFileName;
-	
+
 	public String fName = null;
 	public String lName = null;
-	
+
 	public static File prFwInfo;
 	public static FileWriter prFileWriter;
-	
+
 	static String cwd = System.getProperty("user.dir");
 
 	public static void main(String[] args) {
@@ -323,31 +330,46 @@ public class prescriberSearch {
 			public void mouseClicked(MouseEvent mouseEvent) {
 				if (mouseEvent.getClickCount() == 2) {
 
-					Window window = SwingUtilities.windowForComponent(table);
-
-					window.setVisible(false);
-
 					int row = table.getSelectedRow();
 
-					Object lNameTable = (Object) model.getValueAt(row, 0);
-					Object fNameTable = (Object) model.getValueAt(row, 1);
-					Object fLicense = (Object) model.getValueAt(row, 2);
-					Object fpn = (Object) model.getValueAt(row, 3);
-					Object fFax = (Object) model.getValueAt(row, 4);
-					Object fAdd = (Object) model.getValueAt(row, 5);
+					lNameTable = (Object) model.getValueAt(row, 0);
+					fNameTable = (Object) model.getValueAt(row, 1);
+					fLicense = (Object) model.getValueAt(row, 2);
+					fpn = (Object) model.getValueAt(row, 3);
+					fFax = (Object) model.getValueAt(row, 4);
+					fAdd = (Object) model.getValueAt(row, 5);
 
-					rxFillingScreen.ptInfo_1.setVisible(false);
-					rxFillingScreen.drugInfo_1.setVisible(false);
-					rxFillingScreen.prInfo_1.setVisible(true);
-					rxFillingScreen.patientBtn.setEnabled(true);
-					rxFillingScreen.prescriberBtn.setEnabled(true);
-					rxFillingScreen.drugBtn.setEnabled(true);
-					rxFillingScreen.prInfo_1.repaint();
-					rxFillingScreen.lblNameOfPr.setText(fNameTable + " " + lNameTable);
-					rxFillingScreen.setTextOfPrFields(lNameTable, fNameTable, fLicense, fpn, fFax, fAdd);
+					if (enterRx.rxEnterScreenPrSearch == false) {
+
+						Window window = SwingUtilities.windowForComponent(table);
+
+						window.setVisible(false);
+
+						rxFillingScreen.ptInfo_1.setVisible(false);
+						rxFillingScreen.drugInfo_1.setVisible(false);
+						rxFillingScreen.prInfo_1.setVisible(true);
+						rxFillingScreen.patientBtn.setEnabled(true);
+						rxFillingScreen.prescriberBtn.setEnabled(true);
+						rxFillingScreen.drugBtn.setEnabled(true);
+						rxFillingScreen.prInfo_1.repaint();
+						rxFillingScreen.lblNameOfPr.setText(fNameTable + " " + lNameTable);
+						rxFillingScreen.setTextOfPrFields(lNameTable, fNameTable, fLicense, fpn, fFax, fAdd);
+
+					} else {
+
+						Window window2 = SwingUtilities.windowForComponent(table);
+
+						window2.setVisible(false);
+						
+						enterRx.rxEnterScreenPrSearch = false;
+						enterRx.prField.setText(fNameTable + " " + lNameTable + " | " + fLicense + " | " + fAdd);
+						
+
+					}
 
 				}
 			}
+
 		};
 
 		table.addMouseListener(mouseListener);

@@ -62,6 +62,13 @@ public class drugSearch {
 	public String fName = null;
 	public String lName = null;
 	
+	public 	Object drugNameTable;
+	public Object strTable;
+	public Object dinTable;
+	public Object upcTable;
+	public Object mfrTable;
+	
+	
 	public static File prFwInfo;
 	public static FileWriter drugFileWriter;
 	public static String drugInfoFileName;
@@ -310,19 +317,23 @@ public class drugSearch {
 			public void mouseClicked(MouseEvent mouseEvent) {
 				if (mouseEvent.getClickCount() == 2) {
 
+					
+				
 					Window window = SwingUtilities.windowForComponent(table);
 
 					window.setVisible(false);
 
 					int row = table.getSelectedRow();
 
-					Object drugNameTable = (Object) model.getValueAt(row, 0);
-					Object strTable = (Object) model.getValueAt(row, 1);
-					Object dinTable = (Object) model.getValueAt(row, 2);
-					Object upcTable = (Object) model.getValueAt(row, 3);
-					Object mfrTable = (Object) model.getValueAt(row, 4);
+					 drugNameTable = (Object) model.getValueAt(row, 0);
+					 strTable = (Object) model.getValueAt(row, 1);
+					 dinTable = (Object) model.getValueAt(row, 2);
+					 upcTable = (Object) model.getValueAt(row, 3);
+					 mfrTable = (Object) model.getValueAt(row, 4);
 					
 
+					if (enterRx.rxEnterScreenDrugSearch == false) {
+					
 					
 					rxFillingScreen.prInfo_1.setVisible(false);
 					rxFillingScreen.ptInfo_1.setVisible(false);
@@ -333,7 +344,19 @@ public class drugSearch {
 					rxFillingScreen.prInfo_1.repaint();
 					rxFillingScreen.lblNameOfDrug.setText(drugNameTable + " " + strTable);
 					rxFillingScreen.setTextOfDrugFields(drugNameTable, strTable, dinTable, upcTable, mfrTable);
+					
+					} else {
+						
+						Window window2 = SwingUtilities.windowForComponent(table);
 
+						window2.setVisible(false);
+						
+						enterRx.rxEnterScreenDrugSearch = false;
+						enterRx.drugField.setText(drugNameTable + " " + strTable + " | " + dinTable + " | " + mfrTable);
+						
+						
+						
+					}
 				}
 			}
 		};

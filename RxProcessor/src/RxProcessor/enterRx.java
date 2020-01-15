@@ -13,9 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
-
-import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
-
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -27,6 +24,8 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class enterRx extends JFrame {
 
@@ -42,10 +41,16 @@ public class enterRx extends JFrame {
 	static String add;
 	static String li;
 
+	public static boolean rxEnterScreenPrSearch = false;
+	public static boolean rxEnterScreenDrugSearch = false;
+	
 	public static JComboBox drugSearchBox = new JComboBox();
 
 	public static JLabel ptName = new JLabel();
-	private JTextField textField;
+
+	public static JTextField prField = new JTextField();
+	public static JTextField drugField = new JTextField();
+	private JTextField sigField;
 
 	/**
 	 * Launch the application.
@@ -67,6 +72,7 @@ public class enterRx extends JFrame {
 	 * Create the frame.
 	 */
 	public enterRx() {
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		setBounds(100, 100, 885, 672);
@@ -89,118 +95,56 @@ public class enterRx extends JFrame {
 		ptName.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		ptName.setBounds(10, 11, 849, 42);
 		panel.add(ptName);
-
-		List<String> strings = new ArrayList<String>();
-		String[] searchDrug = null;
-
-		try {
-
-			BufferedReader input = new BufferedReader(new FileReader(cwd + "RxProcessor/drugFiles/drugList.txt"));
-
-			try {
-
-				String line = null;
-				String id = null;
-				drug = null;
-				str = null;
-				din = null;
-				while ((line = input.readLine()) != null) {
-					if (line.length() > 0) {
-						searchDrug = line.split("__");
-						String[] ary = searchDrug;
-						drug = ary[0];
-						str = ary[1];
-						din = ary[2];
-						drugSearchBox.addItem(drug.toString() + " " + str.toString() + "    |      " + din.toString());
-					}
-				}
-			}
-
-			catch (FileNotFoundException e) {
-				System.err.println("Error, file " + cwd + "drugtList.txt" + " didn't exist.");
-			} finally {
-				input.close();
-
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		String[] choose = strings.toArray(new String[] {});
-
-		for (int i = 0; i < choose.length; i++) {
-			// pharmChoice.add(choose[i]);
-
-		}
-
-		boolean strictMatching = false;
-
-		AutoCompleteDecorator.decorate(drugSearchBox);
-
-		drugSearchBox.setBounds(10, 76, 849, 22);
-		drugSearchBox.setEditable(true);
-		panel.add(drugSearchBox);
-
-		JComboBox prCombo = new JComboBox();
-
-		prCombo.setEditable(true);
-		prCombo.setBounds(10, 109, 849, 22);
-		panel.add(prCombo);
 		
-		textField = new JTextField();
-		textField.setBounds(10, 142, 849, 20);
-		panel.add(textField);
-		textField.setColumns(10);
-		
-		JButton Submit = new JButton("Submit");
-		Submit.addActionListener(new ActionListener() {
+		JButton btnPrescriberSearch = new JButton("Prescriber Search");
+		btnPrescriberSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				rxEnterScreenPrSearch = true;
+				prescriberSearch fillingPrSeacrh = new prescriberSearch();
+				fillingPrSeacrh.setVisible(true);
+				
+			}
+		});
+		btnPrescriberSearch.setBounds(10, 64, 128, 23);
+		panel.add(btnPrescriberSearch);
+		
+		prField = new JTextField();
+		prField.setBounds(148, 65, 257, 20);
+		prField.setEditable(false);
+		panel.add(prField);
+		prField.setColumns(10);
+		
+		JButton btnDSearch = new JButton("Drug Search");
+		btnDSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				rxEnterScreenDrugSearch = true;
+				drugSearch fillingDrugSeacrh = new drugSearch();
+				fillingDrugSeacrh.setVisible(true);
 				
 				
 			}
 		});
-		Submit.setBounds(770, 599, 89, 23);
-		panel.add(Submit);
-
-		String[] searchPr = null;
+		btnDSearch.setBounds(10, 98, 128, 23);
+		panel.add(btnDSearch);
 		
-		try {
+		drugField.setBounds(148, 99, 257, 20);
+		drugField.setEditable(false);
+		panel.add(drugField);
+		drugField.setColumns(10);
+		
+		sigField = new JTextField();
+		sigField.setBounds(10, 132, 395, 20);
+		panel.add(sigField);
+		sigField.setColumns(10);
+		
+		JTextArea sigArea = new JTextArea();
+		sigArea.setBounds(20, 163, 374, 69);
+		panel.add(sigArea);
+		
+		
 
-			BufferedReader inputPr = new BufferedReader(new FileReader(cwd + "RxProcessor/prFiles/prList.txt"));
-
-			try {
-
-				String line = null;
-				pr = null;
-				add = null;
-				li = null;
-				while ((line = inputPr.readLine()) != null) {
-					if (line.length() > 0) {
-						searchPr = line.split("/");
-						String[] ary = searchPr;
-						pr = ary[1] + " " + ary[0];
-						add = ary[5];
-						li = ary[2];
-						prCombo.addItem(pr.toString() + " | " + add.toString() + " | " + li.toString());
-						
-					}
-				}
-			}
-
-			catch (FileNotFoundException e) {
-				System.err.println("Error, file " + cwd + "prList.txt" + " didn't exist.");
-			} finally {
-				inputPr.close();
-
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	
 
 	}
 }
