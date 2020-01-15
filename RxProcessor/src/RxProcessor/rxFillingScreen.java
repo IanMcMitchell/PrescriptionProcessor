@@ -245,6 +245,7 @@ public class rxFillingScreen extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				enterRx enterAnRx = new enterRx();
+				enterRx.ptName.setText(fNameSave + " " + lNameSave);
 				enterAnRx.setVisible(true);
 
 			}
