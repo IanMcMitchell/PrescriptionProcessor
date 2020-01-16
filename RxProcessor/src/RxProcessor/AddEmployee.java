@@ -87,7 +87,7 @@ public class AddEmployee {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().setBackground(new Color(220, 225, 200));
-		ImageIcon img = new ImageIcon(cwd + "RxProcessor/rxLogo.jpg");
+		ImageIcon img = new ImageIcon(cwd + "RxProcessor/rxLogo.jpg"); //set logo
 		frame.setIconImage(img.getImage());
 
 		frame.setLocationRelativeTo(null);
@@ -95,7 +95,7 @@ public class AddEmployee {
 		frame.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				EmployeeLogin.frame.setVisible(true);
+				EmployeeLogin.frame.setVisible(true); //open login when closed
 			}
 		});
 
@@ -103,16 +103,12 @@ public class AddEmployee {
 		empName.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				int textPosition = empName.getCaretPosition();
+				int textPosition = empName.getCaretPosition(); //text to uppercase
 				empName.setText(empName.getText().toUpperCase());
 				empName.setCaretPosition(textPosition);
 			}
 		});
-//			@Override
-//			public void keyTyped(KeyEvent evt) {
-//				TFKeyTypedUpperCase(evt);
-//			}
-//		});
+
 		empName.setBounds(10, 62, 223, 20);
 		frame.getContentPane().add(empName);
 		empName.setColumns(10);
@@ -121,7 +117,7 @@ public class AddEmployee {
 		empID.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				int textPosition = empID.getCaretPosition();
+				int textPosition = empID.getCaretPosition(); //text to uppercase
 				empID.setText(empID.getText().toUpperCase());
 				empID.setCaretPosition(textPosition);
 			}
@@ -153,8 +149,7 @@ public class AddEmployee {
 		frame.getContentPane().add(scrollPane);
 
 		table = new JTable();
-		// DefaultTableModel model = new DefaultTableModel();
-		// table.setModel(model);
+
 
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 
@@ -169,7 +164,7 @@ public class AddEmployee {
 		save.setBounds(160, 422, 73, 22);
 		frame.getContentPane().add(save);
 
-		remove = new JButton("-");
+		remove = new JButton("-"); //remove from list
 		remove.setBackground(new Color(225, 220, 200));
 		remove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -198,14 +193,13 @@ public class AddEmployee {
 			}
 
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
 		// File emplFile = new File(cwd + "RxProcessor/employeeFiles");
 		// emplFile.mkdir();
 
-		empAdd.addActionListener(new ActionListener() {
+		empAdd.addActionListener(new ActionListener() { //add to list
 
 			public void actionPerformed(ActionEvent e) {
 
@@ -220,50 +214,13 @@ public class AddEmployee {
 
 					});
 
-					/**
-					 * 
-					 * try {
-					 * 
-					 * System.out.println(empN);
-					 * 
-					 * employeeWriter = new FileWriter(cwd +
-					 * "RxProcessor/employeeFiles/employees.txt", true); employeeReader = new
-					 * FileReader(cwd + "RxProcessor/employeeFiles/employees.txt"); BufferedWriter
-					 * empBw = new BufferedWriter(employeeWriter); BufferedReader empBr = new
-					 * BufferedReader(employeeReader);
-					 * 
-					 * if (empBr.toString() != "") { empBw.newLine(); } empBw.append(empN + "/" +
-					 * emp);
-					 * 
-					 * // employee1.write(emp);
-					 * 
-					 * // JOptionPane.showMessageDialog(frame, empN);
-					 * 
-					 * // String lineOne = empBr.readLine().trim(); // String[] name =
-					 * lineOne.split("###");
-					 * 
-					 * Object[] empLines = empBr.lines().toArray();
-					 * 
-					 * for (int i = 0; i < empLines.length; i++) { String line =
-					 * empLines[i].toString().trim(); String[] dataRow = line.split("/");
-					 * model.addRow(dataRow); }
-					 * 
-					 * empBw.close();
-					 * 
-					 * } catch (IOException e1) { // TODO Auto-generated catch block
-					 * e1.printStackTrace(); }
-					 * 
-					 * // EmployeeLogin.frame.setVisible(true);
-					 * 
-					 * // EmployeeLogin empFrame = new EmployeeLogin(); //
-					 * empFrame.setVisible(true);
-					 * 
-					 * // frame.dispose();
-					 */
+					
 				}
 			}
 		});
 
+		//write employee info to text file, employeeList.txt.
+		
 		save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 

@@ -72,7 +72,7 @@ public class EmployeeLogin {
 		}
 		
 		File emplFile = new File(cwd + "RxProcessor/employeeFiles");
-		emplFile.mkdir();
+		emplFile.mkdir(); // create dicretory for employee files
 
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(220, 225, 200));
@@ -82,7 +82,7 @@ public class EmployeeLogin {
 		frame.setLocationRelativeTo(null);
 		frame.setTitle("Employee Login");
 		
-		ImageIcon img = new ImageIcon(cwd + "RxProcessor/rxLogo.jpg");
+		ImageIcon img = new ImageIcon(cwd + "RxProcessor/rxLogo.jpg"); //set logo
 		frame.setIconImage(img.getImage());
 		
 		frame.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -96,7 +96,7 @@ public class EmployeeLogin {
 		textField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				int textPosition = textField.getCaretPosition();
+				int textPosition = textField.getCaretPosition(); //text to uppercase
 				textField.setText(textField.getText().toUpperCase());
 				textField.setCaretPosition(textPosition);
 			}
@@ -116,7 +116,7 @@ public class EmployeeLogin {
 		JButton newEmployee = new JButton("Add Employee");
 		newEmployee.setBackground(new Color(225,220,200));
 		newEmployee.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) { //open the pharm password class
 
 				//AddEmployee empAddFrame = new AddEmployee();
 				//empAddFrame.setVisible(true);
@@ -134,7 +134,7 @@ public class EmployeeLogin {
 		frame.getContentPane().add(newEmployee);
 
 	
-		Action action = new AbstractAction()
+		Action action = new AbstractAction() //check to see if entered id is in the system
 		{
 		    @Override
 		    public void actionPerformed(ActionEvent e)
@@ -186,37 +186,9 @@ public class EmployeeLogin {
 					e1.printStackTrace();
 				}
 				
-				// if (new File(cwd + "RxProcessor/employeeFiles/" +
-				// textField.getText()+".txt").isFile()) {
-
-				// JOptionPane.showMessageDialog(frame, "Login Successful");
-
-				// }
-				
-				/*
-				try {
-					String id = "";
-					Scanner inputStream  = new Scanner(new File(cwd + "RxProcessor/employeeFiles/employees.txt"));
-					String line;
-					while (inputStream.hasNextLine()) {
-						line = inputStream.nextLine();
-						String [] ary = line.split("/");
-						id = ary[1];
-						String name = ary[0];
-					}
-					if (id.equals(textField.getText().toString())) {
-					JOptionPane.showMessageDialog(frame, "Login Successful");
-					}
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				**/
 			}
 
-		    	
-		    	
+  
 		    
 		};
 
@@ -224,10 +196,6 @@ public class EmployeeLogin {
 		
 		JButton employeeEnter = new JButton("Enter");
 		employeeEnter.setBackground(new Color(225,220,200));
-		//employeeEnter.addActionListener(new ActionListener() {
-		//	public void actionPerformed(ActionEvent e) {		
-		//	}
-		//	});
 		employeeEnter.addActionListener(action);
 		employeeEnter.setBounds(10, 74, 224, 22);
 		frame.getContentPane().add(employeeEnter);

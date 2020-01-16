@@ -51,7 +51,7 @@ public class drugSearch {
 
 	private JFrame frame;
 	
-	private JTextField strengthField;
+	private JTextField strengthField; //textField in drugSearch()
 	private JTextField drugNameField;
 	private JTextField manufactureField;
 	private JTextField upcField;
@@ -62,7 +62,7 @@ public class drugSearch {
 	public String fName = null;
 	public String lName = null;
 	
-	public static Object drugNameTable;
+	public static Object drugNameTable; //info gathered from table x5
 	public static Object strTable;
 	public static Object dinTable;
 	public static Object upcTable;
@@ -73,6 +73,8 @@ public class drugSearch {
 	public static FileWriter drugFileWriter;
 	public static String drugInfoFileName;
 
+	//GET CURRENT LOCATION ==== VERY VERY IMPORTANT
+	
 	static String cwd = System.getProperty("user.dir");
 	
 	public static void main(String[] args) {
@@ -94,6 +96,7 @@ public class drugSearch {
 
 	public void initialize() {
 
+		//set look and feel so the JButtons don't look crappy
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
@@ -109,13 +112,14 @@ public class drugSearch {
 		frame = new JFrame();
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowClosed(WindowEvent e) {
+			public void windowClosed(WindowEvent e) { //enable buttons 
 				rxFillingScreen.patientBtn.setEnabled(true);
 				rxFillingScreen.prescriberBtn.setEnabled(true);
 				rxFillingScreen.drugBtn.setEnabled(true);
 
 			}
 		});
+		//doesn't work, try again later.
 		frame.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
@@ -128,7 +132,7 @@ public class drugSearch {
 		frame.getContentPane().setBackground(new Color(220, 225, 200));
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
-		ImageIcon img = new ImageIcon(cwd + "RxProcessor/rxLogo.jpg");
+		ImageIcon img = new ImageIcon(cwd + "RxProcessor/rxLogo.jpg"); //set logo
 		frame.setIconImage(img.getImage());
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		strengthField = new JTextField();
@@ -136,7 +140,7 @@ public class drugSearch {
 		strengthField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				int textPosition = strengthField.getCaretPosition();
+				int textPosition = strengthField.getCaretPosition(); // text to uppercase
 				strengthField.setText(strengthField.getText().toUpperCase());
 				strengthField.setCaretPosition(textPosition);
 			}
@@ -149,7 +153,7 @@ public class drugSearch {
 
 		drugNameField.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyReleased(KeyEvent e) {
+			public void keyReleased(KeyEvent e) {// text to uppercase
 				int textPosition = drugNameField.getCaretPosition();
 				drugNameField.setText(drugNameField.getText().toUpperCase());
 				drugNameField.setCaretPosition(textPosition);
@@ -166,7 +170,7 @@ public class drugSearch {
 		});
 		manufactureField.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyReleased(KeyEvent e) {
+			public void keyReleased(KeyEvent e) {// text to uppercase
 				int textPosition = manufactureField.getCaretPosition();
 				manufactureField.setText(manufactureField.getText().toUpperCase());
 				manufactureField.setCaretPosition(textPosition);
@@ -196,7 +200,7 @@ public class drugSearch {
 
 		upcField.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyReleased(KeyEvent e) {
+			public void keyReleased(KeyEvent e) {// text to uppercase
 				int textPosition = upcField.getCaretPosition();
 				upcField.setText(upcField.getText().toUpperCase());
 				upcField.setCaretPosition(textPosition);
@@ -210,7 +214,7 @@ public class drugSearch {
 		dinField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				int textPosition = dinField.getCaretPosition();
+				int textPosition = dinField.getCaretPosition();// text to uppercase
 				dinField.setText(dinField.getText().toUpperCase());
 				dinField.setCaretPosition(textPosition);
 			}
@@ -220,7 +224,7 @@ public class drugSearch {
 		scrollPane.setBounds(21, 143, 573, 254);
 		frame.getContentPane().add(scrollPane);
 
-		JTable table = new JTable();
+		JTable table = new JTable(); //table to display drug search
 		scrollPane.setViewportView(table);
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		table.setDefaultEditor(Object.class, null);
@@ -230,6 +234,8 @@ public class drugSearch {
 		model.addColumn("UPC");
 		model.addColumn("MFR");
 
+		//Search for drug based on entered fields
+		
 		JButton search = new JButton("Search");
 		search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -253,6 +259,8 @@ public class drugSearch {
 		search.setBounds(505, 401, 89, 23);
 		frame.getContentPane().add(search);
 
+		// create drug file
+		
 		JButton newDrug = new JButton("New");
 		newDrug.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -313,6 +321,8 @@ public class drugSearch {
 		lblDin.setBounds(359, 65, 24, 14);
 		frame.getContentPane().add(lblDin);
 
+		//click table values twice to open file
+		
 		MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent mouseEvent) {
 				if (mouseEvent.getClickCount() == 2) {
@@ -365,6 +375,8 @@ public class drugSearch {
 
 	}
 
+	// the real search function sent from search.doClick()
+	
 	public void parseFile(String fileName, String drugNameSearch, String strengthSearch, DefaultTableModel model,
 			String dinSearch, String upcSeacrh, String manufactureSearch) throws FileNotFoundException {
 		try (Scanner scan = new Scanner(new File(fileName))) {
@@ -383,7 +395,7 @@ public class drugSearch {
 				if (line.contains(drugNameSearch) && line.contains(strengthSearch) && line.contains(dinSearch)
 						&& line.contains(upcSeacrh) && line.contains(manufactureSearch)) {
 
-					searchName = line.toString().split("__");
+					searchName = line.toString().split("__"); //pattern for algorithm
 					String[] ary = searchName;
 					drugName = ary[0];
 					strength = ary[1];
@@ -400,7 +412,7 @@ public class drugSearch {
 
 					}
 					if (wordCount != 0) {
-						model.addRow(ary);
+						model.addRow(ary); //keep added relevant fields to table
 					}
 				}
 			}

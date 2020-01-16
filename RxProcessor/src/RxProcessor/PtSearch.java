@@ -254,6 +254,8 @@ public class PtSearch {
 		Search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				//SEARCH FOR PTs
+				
 				model.setRowCount(0);
 
 				String searchVariables = lNameField.getText().toString() + "/" + fNameField.getText().toString();
@@ -283,6 +285,8 @@ public class PtSearch {
 		newPt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				// ADD PTs
+				
 				if ((dobField.getText().toString().equals("") | (dobField.getText().length() == 8))) {
 
 					try {
@@ -300,8 +304,6 @@ public class PtSearch {
 						ptBw.newLine();
 
 						File ptFwInfo = new File(cwd + "RxProcessor/ptFiles/" + ptInfoFileName + ".txt");
-//						FileReader ptFwInfo2 = new FileReader(ptFwInfo);
-//						BufferedReader ptInfoBr = new BufferedReader(ptFwInfo2);
 
 						patientFileWriter = new FileWriter(ptFwInfo);
 						BufferedWriter patientFileWriterBr = new BufferedWriter(patientFileWriter);
@@ -313,10 +315,6 @@ public class PtSearch {
 						patientFileWriter.close();
 						ptFw.close();
 						ptBw.close();
-
-						// Window window = SwingUtilities.windowForComponent(table);
-
-						// window.setVisible(false);
 
 						Search.doClick();
 
@@ -338,6 +336,8 @@ public class PtSearch {
 			public void mouseClicked(MouseEvent mouseEvent) {
 				if (mouseEvent.getClickCount() == 2) {
 
+					//DOuble click to enter file
+					
 					Window window = SwingUtilities.windowForComponent(table);
 
 					window.setVisible(false);
@@ -363,7 +363,6 @@ public class PtSearch {
 					try {
 						rxFillingScreen.setTextOfFields(lNameTable, fNameTable, fDOB, fpn, fPHN, fAdd);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
@@ -375,6 +374,8 @@ public class PtSearch {
 
 	}
 
+	//Actually search by parseFilel the data from the fields
+	
 	public void parseFile(String fileName, String lNameSearch, String fNameSearch, DefaultTableModel model, String DOB,
 			String pn, String phn, String add) throws FileNotFoundException {
 		try (Scanner scan = new Scanner(new File(fileName))) {
@@ -406,7 +407,6 @@ public class PtSearch {
 							&& (ptDob.startsWith(DOB.toString())) && (phoneNumber.startsWith(pn.toString()))
 							&& (healthcareNumber.startsWith(phn.toString())) && (address.contains(add.toString()))) {
 
-						// JOptionPane.showMessageDialog(frame, ary);
 						wordCount++;
 
 					}

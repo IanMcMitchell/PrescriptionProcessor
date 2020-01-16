@@ -82,6 +82,9 @@ public class LoginRxProcessor {
 		} catch (UnsupportedLookAndFeelException e1) {
 			e1.printStackTrace();
 		}
+		
+		//create a lot of directories 
+		
 		File mainFile = new File(cwd + "RxProcessor");
 		mainFile.mkdir();
 		File pharmFile = new File(cwd + "RxProcessor/pharmacistFiles");
@@ -117,6 +120,8 @@ public class LoginRxProcessor {
 		lblSelectPharmacist.setBounds(77, 11, 146, 14);
 		frame.getContentPane().add(lblSelectPharmacist);
 
+		//add a pharmacist
+		
 		JButton buttonAddPharmacist = new JButton("Add Pharmacist");
 		buttonAddPharmacist.setBackground(new Color(225, 220, 200));
 		buttonAddPharmacist.addActionListener(new ActionListener() {
@@ -146,6 +151,8 @@ public class LoginRxProcessor {
 		List<String> strings = new ArrayList<String>();
 		String[] searchName = null;
 
+		//add pharmacists from pharmacistList.txt to JComboBox
+		
 		try {
 
 			BufferedReader input = new BufferedReader(
@@ -187,6 +194,8 @@ public class LoginRxProcessor {
 		pharmChoice.setBounds(10, 36, 224, 20);
 		frame.getContentPane().add(pharmChoice);
 
+		//open employee pw screen
+		
 		JButton EmplyeeLogin = new JButton("Next");
 		EmplyeeLogin.setBackground(new Color(225, 220, 200));
 		EmplyeeLogin.addActionListener(new ActionListener() {

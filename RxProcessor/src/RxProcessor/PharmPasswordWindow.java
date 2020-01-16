@@ -32,9 +32,6 @@ public class PharmPasswordWindow {
 	private JTextField textField;
 	static String cwd = System.getProperty("user.dir");
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -48,16 +45,12 @@ public class PharmPasswordWindow {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
+
 	public PharmPasswordWindow() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+
 	private void initialize() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -106,6 +99,8 @@ public class PharmPasswordWindow {
 		lblPharmacistLogin.setBounds(59, 27, 185, 14);
 		frame.getContentPane().add(lblPharmacistLogin);
 
+		//check to see if the phar password/id exists
+		
 		Action action = new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -121,7 +116,7 @@ public class PharmPasswordWindow {
 					String input = textField.getText().toString();
 					int wordCount = 0;
 					while ((line = loginScreenBR.readLine()) != null) {
-						searchID = line.split("/");
+						searchID = line.split("/"); //sort by the pattern created by "/"
 
 						for (String word : searchID) {
 							if (word.equals(input)) {
@@ -153,10 +148,8 @@ public class PharmPasswordWindow {
 					}
 
 				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 
@@ -166,11 +159,6 @@ public class PharmPasswordWindow {
 		JButton button = new JButton("Accept");
 		button.setBackground(new Color(225, 220, 200));
 		button.addActionListener(action);
-//		button.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) {
-//
-//			}
-//		});
 
 		button.setBounds(10, 81, 224, 22);
 		frame.getContentPane().add(button);

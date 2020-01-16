@@ -192,6 +192,8 @@ public class NewPharmacist {
 			}
 		});
 
+		//display current phars
+		
 		try {
 			pharReader = new FileReader(cwd + "RxProcessor/pharmacistFiles/pharmacistList.txt");
 			BufferedReader pharBr = new BufferedReader(pharReader);
@@ -212,6 +214,8 @@ public class NewPharmacist {
 		buttonRemove.setBounds(187, 128, 46, 22);
 		frame.getContentPane().add(buttonRemove);
 
+		//add phar to JTable, and then add to txt file by clicking save
+		
 		JButton buttonAdd = new JButton("+");
 		buttonAdd.setOpaque(true);
 		buttonAdd.setBackground(new Color(238, 232, 170));
@@ -238,6 +242,8 @@ public class NewPharmacist {
 
 		// saveBtn.addActionListener(this);
 
+		//adding the updated info from the table to the txt file
+		
 		saveBtn.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
@@ -279,24 +285,7 @@ public class NewPharmacist {
 				
 
 				frame.dispose();
-				/**
-				 * String pharmEnter = pharName.getText();
-				 * 
-				 * String cwd = System.getProperty("user.dir");
-				 * 
-				 * try { pharmacistFile = new FileWriter(cwd +
-				 * "RxProcessor/PharmacistFiles/pharmacistList.txt", true); BufferedWriter
-				 * pharmBw = new BufferedWriter(pharmacistFile);
-				 * 
-				 * pharmBw.newLine(); pharmBw.append(pharmEnter);
-				 * 
-				 * pharmBw.close(); } catch (IOException e) { e.printStackTrace(); }
-				 * 
-				 * LoginRxProcessor loginFrame = new LoginRxProcessor();
-				 * loginFrame.setVisible(true);
-				 * 
-				 * frame.dispose();
-				 */
+
 
 			}
 		});

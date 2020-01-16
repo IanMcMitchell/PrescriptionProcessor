@@ -179,9 +179,16 @@ public class enterRx extends JFrame {
 
 				sigArea.setText(sigField.getText().toString());
 
+				//QUICK CODES!!!
+				
 				if (sigField.getText().toString().contains("T1T")) {
 					String replace = sigArea.getText();
 					String replaceString = replace.replaceAll("T1T", "TAKE ONE TABLET BY MOUTH");
+					sigArea.setText(replaceString);
+				}
+				if (sigField.getText().toString().contains("T1C")) {
+					String replace = sigArea.getText();
+					String replaceString = replace.replaceAll("T1C", "TAKE ONE CAPSULE BY MOUTH");
 					sigArea.setText(replaceString);
 				}
 				if (sigField.getText().toString().contains("BID")) {
@@ -306,7 +313,7 @@ public class enterRx extends JFrame {
 					FileWriter rxFw = new FileWriter(cwd + "RxProcessor/ptFiles/" + rxFillingScreen.fileName, true);
 					BufferedWriter rxBw = new BufferedWriter(rxFw);
 
-					
+					//create pattern to save info
 					
 					Random rand = new Random();
 					int randomRxNumber = rand.nextInt(9999999);
@@ -364,6 +371,8 @@ public class enterRx extends JFrame {
 					DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
 					Doc mydoc = new SimpleDoc(textStream, flavor, null);
 
+					//print when submitted
+					
 					   PrintService[] services = PrintServiceLookup.lookupPrintServices(
 					                flavor, aset);
 					   PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
