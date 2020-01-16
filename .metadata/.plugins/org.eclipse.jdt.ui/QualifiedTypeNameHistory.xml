@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.nio.charset.Charset"/>
-<fullyQualifiedTypeName name="javax.swing.JTextPane"/>
-<fullyQualifiedTypeName name="org.jdesktop.swingx.autocomplete.AutoCompleteDecorator"/>
+    <fullyQualifiedTypeName name="java.nio.charset.Charset"/>
+    <fullyQualifiedTypeName name="javax.swing.JTextPane"/>
+    <fullyQualifiedTypeName name="org.jdesktop.swingx.autocomplete.AutoCompleteDecorator"/>
 </qualifiedTypeNameHistroy>

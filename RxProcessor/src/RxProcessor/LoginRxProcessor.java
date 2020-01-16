@@ -94,6 +94,8 @@ public class LoginRxProcessor {
 		prFile.mkdir();
 		File drugFiles = new File(cwd + "RxProcessor/drugFiles");
 		drugFiles.mkdir();
+		File rxFiles = new File(cwd + "RxProcessor/rxFiles");
+		rxFiles.mkdir();
 
 		String cwd = System.getProperty("user.dir");
 

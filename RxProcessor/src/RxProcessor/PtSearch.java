@@ -334,15 +334,6 @@ public class PtSearch {
 		newPt.setBounds(443, 403, 70, 22);
 		frame.getContentPane().add(newPt);
 
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		btnNewButton.setBounds(21, 403, 89, 23);
-		frame.getContentPane().add(btnNewButton);
-
 		MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent mouseEvent) {
 				if (mouseEvent.getClickCount() == 2) {

@@ -58,12 +58,12 @@ public class prescriberSearch {
 	private JTextField faxField;
 	private JTextField licenseField;
 
-	public Object lNameTable;
-	public Object fNameTable;
-	public Object fLicense;
-	public Object fpn;
-	public Object fFax;
-	public Object fAdd;
+	public static Object lNameTable;
+	public static Object fNameTable;
+	public static Object fLicense;
+	public static Object fpn;
+	public static Object fFax;
+	public static Object fAdd;
 
 	private JLabel lblAddress;
 	public static String prInfoFileName;

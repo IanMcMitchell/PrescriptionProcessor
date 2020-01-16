@@ -69,6 +69,8 @@ public class rxFillingScreen extends JFrame {
 	public static Object addSave;
 	public static Object pnSave;
 	public static Object phnSave;
+	
+	public static JButton newRx = new JButton("New Rx");
 
 	public static Object prLNameSave;
 	public static Object prFNameSave;
@@ -87,6 +89,8 @@ public class rxFillingScreen extends JFrame {
 	private static String saveOldInfoPr;
 	private static String saveOldInfoDrug;
 
+	public static String fileName;
+	
 	public static JTextArea textArea = new JTextArea();
 
 	public static JButton patientBtn = new JButton("Patient Search");
@@ -113,7 +117,6 @@ public class rxFillingScreen extends JFrame {
 			public void run() {
 				try {
 					rxFillingScreen frame = new rxFillingScreen();
-					frame.setAlwaysOnTop(true);
 					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 
@@ -239,13 +242,16 @@ public class rxFillingScreen extends JFrame {
 		ptInfo_1.setBackground(new Color(220, 225, 200));
 		ptInfo_1.setLayout(null);
 
-		JButton newRx = new JButton("New Rx");
+		
 		newRx.setBounds(10, 401, 69, 44);
 		newRx.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				enterRx enterAnRx = new enterRx();
+				newRx.setEnabled(false);
 				enterRx.ptName.setText(fNameSave + " " + lNameSave);
+				fileName = (lNameSave.toString() + "_" + fNameSave.toString() + "_" + dobSave.toString() + "_"
+						+ pnSave.toString() + "_" + phnSave.toString() + "_" + addSave.toString() + "_" + ".txt");
 				enterAnRx.setVisible(true);
 
 			}

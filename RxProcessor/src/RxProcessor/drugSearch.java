@@ -62,11 +62,11 @@ public class drugSearch {
 	public String fName = null;
 	public String lName = null;
 	
-	public 	Object drugNameTable;
-	public Object strTable;
-	public Object dinTable;
-	public Object upcTable;
-	public Object mfrTable;
+	public static Object drugNameTable;
+	public static Object strTable;
+	public static Object dinTable;
+	public static Object upcTable;
+	public static Object mfrTable;
 	
 	
 	public static File prFwInfo;
@@ -352,7 +352,7 @@ public class drugSearch {
 						window2.setVisible(false);
 						
 						enterRx.rxEnterScreenDrugSearch = false;
-						enterRx.drugField.setText(drugNameTable + " " + strTable + " | " + dinTable + " | " + mfrTable);
+						enterRx.drugField.setText(drugNameTable + " | " + strTable + " | " + dinTable + " | " + mfrTable);
 						
 						
 						
