@@ -3,4 +3,20 @@
     <fullyQualifiedTypeName name="java.nio.charset.Charset"/>
     <fullyQualifiedTypeName name="javax.swing.JTextPane"/>
     <fullyQualifiedTypeName name="org.jdesktop.swingx.autocomplete.AutoCompleteDecorator"/>
+    <fullyQualifiedTypeName name="java.io.FileWriter"/>
+    <fullyQualifiedTypeName name="java.io.File"/>
+    <fullyQualifiedTypeName name="java.io.BufferedWriter"/>
+    <fullyQualifiedTypeName name="java.util.Random"/>
+    <fullyQualifiedTypeName name="javax.print.attribute.standard.PresentationDirection"/>
+    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+    <fullyQualifiedTypeName name="java.io.FileInputStream"/>
+    <fullyQualifiedTypeName name="javax.print.DocFlavor"/>
+    <fullyQualifiedTypeName name="javax.print.PrintService"/>
+    <fullyQualifiedTypeName name="javax.print.PrintServiceLookup"/>
+    <fullyQualifiedTypeName name="javax.print.SimpleDoc"/>
+    <fullyQualifiedTypeName name="javax.print.Doc"/>
+    <fullyQualifiedTypeName name="javax.print.DocPrintJob"/>
+    <fullyQualifiedTypeName name="javax.print.attribute.PrintRequestAttributeSet"/>
+    <fullyQualifiedTypeName name="javax.print.attribute.HashPrintRequestAttributeSet"/>
+    <fullyQualifiedTypeName name="javax.print.attribute.standard.PageRanges"/>
 </qualifiedTypeNameHistroy>

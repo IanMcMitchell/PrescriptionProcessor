@@ -16,6 +16,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,6 +41,7 @@ import javax.swing.JTextArea;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class rxFillingScreen extends JFrame {
 
@@ -69,7 +72,7 @@ public class rxFillingScreen extends JFrame {
 	public static Object addSave;
 	public static Object pnSave;
 	public static Object phnSave;
-	
+
 	public static JButton newRx = new JButton("New Rx");
 
 	public static Object prLNameSave;
@@ -90,7 +93,7 @@ public class rxFillingScreen extends JFrame {
 	private static String saveOldInfoDrug;
 
 	public static String fileName;
-	
+
 	public static JTextArea textArea = new JTextArea();
 
 	public static JButton patientBtn = new JButton("Patient Search");
@@ -110,6 +113,7 @@ public class rxFillingScreen extends JFrame {
 	public static JTextField drugUpcField = new JTextField();
 	public static JTextField manuField = new JTextField();
 
+	public static DefaultTableModel model = new DefaultTableModel();
 	private JLabel drugManufacturerLabel;
 
 	public static void main(String[] args) {
@@ -171,70 +175,6 @@ public class rxFillingScreen extends JFrame {
 			}
 		});
 
-		drugInfo_1.setBackground(new Color(255, 245, 238));
-		drugInfo_1.setBounds(10, 44, 817, 450);
-		contentPane.add(drugInfo_1);
-		drugInfo_1.setLayout(null);
-
-		JButton drugSave = new JButton("\u2611 ");
-		drugSave.setBounds(10, 11, 56, 23);
-		drugInfo_1.add(drugSave);
-
-		JButton drugX = new JButton("X");
-		drugX.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				drugInfo_1.setVisible(false);
-			}
-		});
-		drugX.setForeground(Color.RED);
-		drugX.setBounds(767, 11, 40, 23);
-		drugInfo_1.add(drugX);
-
-		drugNameField.setColumns(10);
-		drugNameField.setBounds(172, 78, 233, 20);
-		drugInfo_1.add(drugNameField);
-
-		drugStrField.setColumns(10);
-		drugStrField.setBounds(512, 78, 233, 20);
-		drugInfo_1.add(drugStrField);
-
-		drugDinField.setBounds(512, 109, 233, 20);
-		drugInfo_1.add(drugDinField);
-
-		drugUpcField.setEditable(true);
-		drugUpcField.setColumns(10);
-		drugUpcField.setBackground(Color.WHITE);
-		drugUpcField.setBounds(172, 109, 233, 20);
-		drugInfo_1.add(drugUpcField);
-
-		manuField.setColumns(10);
-		manuField.setBounds(172, 140, 233, 20);
-		drugInfo_1.add(manuField);
-
-		lblNameOfDrug.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		lblNameOfDrug.setBounds(77, 11, 680, 23);
-		drugInfo_1.add(lblNameOfDrug);
-
-		JLabel nameOfDrug = new JLabel("Drug Name");
-		nameOfDrug.setBounds(97, 81, 64, 14);
-		drugInfo_1.add(nameOfDrug);
-
-		JLabel drugUpcLbl = new JLabel("UPC");
-		drugUpcLbl.setBounds(128, 112, 34, 14);
-		drugInfo_1.add(drugUpcLbl);
-
-		JLabel drugStrLbl = new JLabel("Strength");
-		drugStrLbl.setBounds(456, 81, 46, 14);
-		drugInfo_1.add(drugStrLbl);
-
-		JLabel drugDinLbl = new JLabel("DIN");
-		drugDinLbl.setBounds(456, 112, 46, 14);
-		drugInfo_1.add(drugDinLbl);
-
-		drugManufacturerLabel = new JLabel("Manufacturer");
-		drugManufacturerLabel.setBounds(89, 143, 73, 14);
-		drugInfo_1.add(drugManufacturerLabel);
-
 		ptInfo_1 = new JPanel();
 		ptInfo_1.setBounds(10, 44, 816, 450);
 		contentPane.add(ptInfo_1);
@@ -242,7 +182,6 @@ public class rxFillingScreen extends JFrame {
 		ptInfo_1.setBackground(new Color(220, 225, 200));
 		ptInfo_1.setLayout(null);
 
-		
 		newRx.setBounds(10, 401, 69, 44);
 		newRx.addActionListener(new ActionListener() {
 			@Override
@@ -336,7 +275,7 @@ public class rxFillingScreen extends JFrame {
 
 		phnFill.setBackground(new Color(230, 230, 250));
 		phnFill.setEditable(true);
-		phnFill.setBounds(76, 188, 173, 20);
+		phnFill.setBounds(76, 176, 173, 20);
 		ptInfo_1.add(phnFill);
 		phnFill.setColumns(10);
 
@@ -415,18 +354,15 @@ public class rxFillingScreen extends JFrame {
 		ptInfo_1.add(lblPhoneNumber);
 
 		JLabel lblPhn = new JLabel("PHN");
-		lblPhn.setBounds(76, 173, 46, 14);
+		lblPhn.setBounds(76, 162, 46, 14);
 		ptInfo_1.add(lblPhn);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(321, 186, 385, 216);
+		scrollPane.setBounds(430, 206, 278, 163);
 		ptInfo_1.add(scrollPane);
 		scrollPane.setViewportView(textArea);
 		textArea.setLineWrap(true);
 		textArea.getDocument().putProperty("filterNewlines", Boolean.TRUE);
-
-		prescriberBtn.setBounds(276, 10, 123, 23);
-		contentPane.add(prescriberBtn);
 
 		JButton save = new JButton("\u2611 ");
 		save.addActionListener(new ActionListener() {
@@ -664,6 +600,73 @@ public class rxFillingScreen extends JFrame {
 		save.setBounds(10, 11, 56, 23);
 		ptInfo_1.add(save);
 		ptInfo_1.setVisible(false);
+
+		drugInfo_1.setBackground(new Color(255, 245, 238));
+		drugInfo_1.setBounds(10, 44, 817, 450);
+		contentPane.add(drugInfo_1);
+		drugInfo_1.setLayout(null);
+
+		JButton drugSave = new JButton("\u2611 ");
+		drugSave.setBounds(10, 11, 56, 23);
+		drugInfo_1.add(drugSave);
+
+		JButton drugX = new JButton("X");
+		drugX.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				drugInfo_1.setVisible(false);
+			}
+		});
+		drugX.setForeground(Color.RED);
+		drugX.setBounds(767, 11, 40, 23);
+		drugInfo_1.add(drugX);
+
+		drugNameField.setColumns(10);
+		drugNameField.setBounds(172, 78, 233, 20);
+		drugInfo_1.add(drugNameField);
+
+		drugStrField.setColumns(10);
+		drugStrField.setBounds(512, 78, 233, 20);
+		drugInfo_1.add(drugStrField);
+
+		drugDinField.setBounds(512, 109, 233, 20);
+		drugInfo_1.add(drugDinField);
+
+		drugUpcField.setEditable(true);
+		drugUpcField.setColumns(10);
+		drugUpcField.setBackground(Color.WHITE);
+		drugUpcField.setBounds(172, 109, 233, 20);
+		drugInfo_1.add(drugUpcField);
+
+		manuField.setColumns(10);
+		manuField.setBounds(172, 140, 233, 20);
+		drugInfo_1.add(manuField);
+
+		lblNameOfDrug.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		lblNameOfDrug.setBounds(77, 11, 680, 23);
+		drugInfo_1.add(lblNameOfDrug);
+
+		JLabel nameOfDrug = new JLabel("Drug Name");
+		nameOfDrug.setBounds(97, 81, 64, 14);
+		drugInfo_1.add(nameOfDrug);
+
+		JLabel drugUpcLbl = new JLabel("UPC");
+		drugUpcLbl.setBounds(128, 112, 34, 14);
+		drugInfo_1.add(drugUpcLbl);
+
+		JLabel drugStrLbl = new JLabel("Strength");
+		drugStrLbl.setBounds(456, 81, 46, 14);
+		drugInfo_1.add(drugStrLbl);
+
+		JLabel drugDinLbl = new JLabel("DIN");
+		drugDinLbl.setBounds(456, 112, 46, 14);
+		drugInfo_1.add(drugDinLbl);
+
+		drugManufacturerLabel = new JLabel("Manufacturer");
+		drugManufacturerLabel.setBounds(89, 143, 73, 14);
+		drugInfo_1.add(drugManufacturerLabel);
+
+		prescriberBtn.setBounds(276, 10, 123, 23);
+		contentPane.add(prescriberBtn);
 		drugInfo_1.setVisible(false);
 
 		prescriberBtn.addActionListener(new ActionListener() {
@@ -828,6 +831,13 @@ public class rxFillingScreen extends JFrame {
 		prInfo_1.setVisible(false);
 		patientBtn.setBounds(10, 10, 123, 23);
 		contentPane.add(patientBtn);
+		model.addColumn("Rx Number");
+		model.addColumn("Drug Name and Strength");
+		model.addColumn("Prescriber");
+		model.addColumn("Auth Qty");
+		model.addColumn("Qty");
+		model.addColumn("Refills");
+		model.addColumn("SIG");
 
 		prSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -987,14 +997,16 @@ public class rxFillingScreen extends JFrame {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-
 			}
+
 		});
 
 	}
 
 	public static void setTextOfFields(Object lNameTable, Object fNameTable, Object fDOB, Object fpn, Object fPHN,
 			Object fAdd) throws IOException {
+
+		
 
 		lNameFill.setText(lNameTable.toString());
 		fNameFill.setText(fNameTable.toString());

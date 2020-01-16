@@ -21,10 +21,10 @@
 		<item key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION" value="K:\PrescriptionProcessor.xml"/>
 		<item key="FatJarPackageWizardPage.LIBRARY_HANDLING" value="1"/>
 		<item key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME" value="LoginRxProcessor - RxProcessor"/>
-		<item key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION" value="K:\RxProcessorCS30119.jar"/>
+		<item key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION" value="H:\RxProcessorCS30119.jar"/>
 		<list key="FatJarPackageWizardPage.DESTINATION_NAMES_ID">
-			<item value="K:\RxProcessorCS30119.jar"/>
 			<item value="H:\RxProcessorCS30119.jar"/>
+			<item value="K:\RxProcessorCS30119.jar"/>
 			<item value="H:\RxProcessorCS30118.jar"/>
 			<item value="K:\RxProcessorCS30118.jar"/>
 		</list>
